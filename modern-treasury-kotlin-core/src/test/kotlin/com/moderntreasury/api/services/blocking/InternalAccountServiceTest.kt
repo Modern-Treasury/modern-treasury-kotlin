@@ -48,6 +48,7 @@ internal class InternalAccountServiceTest {
                             .build()
                     )
                     .accountType(InternalAccountCreateParams.AccountType.CHECKING)
+                    .addAllowedAchDebitCompanyId("string")
                     .connectionId("connection_id")
                     .counterpartyId("counterparty_id")
                     .debitable(true)
@@ -70,6 +71,7 @@ internal class InternalAccountServiceTest {
                             .build()
                     )
                     .partyName("party_name")
+                    .partyType(InternalAccountCreateParams.PartyType.INDIVIDUAL)
                     .addRequestedAccountNumberType(
                         InternalAccountCreateParams.RequestedAccountNumberType.ARBITRUM_ADDRESS
                     )
@@ -137,6 +139,7 @@ internal class InternalAccountServiceTest {
                             .region("region")
                             .build()
                     )
+                    .partyType(InternalAccountUpdateParams.PartyType.INDIVIDUAL)
                     .status(InternalAccountUpdateParams.Status.PENDING_CLOSURE)
                     .build()
             )

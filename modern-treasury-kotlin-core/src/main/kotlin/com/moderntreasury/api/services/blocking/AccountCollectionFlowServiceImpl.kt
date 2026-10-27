@@ -37,6 +37,7 @@ internal constructor(private val clientOptions: ClientOptions) : AccountCollecti
     ): AccountCollectionFlowService =
         AccountCollectionFlowServiceImpl(clientOptions.toBuilder().apply(modifier).build())
 
+    @Deprecated("deprecated")
     override fun create(
         params: AccountCollectionFlowCreateParams,
         requestOptions: RequestOptions,
@@ -81,6 +82,7 @@ internal constructor(private val clientOptions: ClientOptions) : AccountCollecti
         private val createHandler: Handler<AccountCollectionFlow> =
             jsonHandler<AccountCollectionFlow>(clientOptions.jsonMapper)
 
+        @Deprecated("deprecated")
         override fun create(
             params: AccountCollectionFlowCreateParams,
             requestOptions: RequestOptions,
