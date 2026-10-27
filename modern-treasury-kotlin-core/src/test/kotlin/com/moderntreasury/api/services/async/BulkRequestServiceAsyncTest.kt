@@ -229,7 +229,7 @@ internal class BulkRequestServiceAsyncTest {
                                             )
                                             .build()
                                     )
-                                    .accountType(ExternalAccountType.BASE_WALLET)
+                                    .accountType(ExternalAccountType.CASH)
                                     .addContactDetail(
                                         ContactDetailCreateRequest.builder()
                                             .contactIdentifier("contact_identifier")
