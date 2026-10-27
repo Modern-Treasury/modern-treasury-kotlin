@@ -263,6 +263,8 @@ class Currency @JsonCreator private constructor(private val value: JsonField<Str
 
         val OP = of("OP")
 
+        val OUSD = of("OUSD")
+
         val PAB = of("PAB")
 
         val PEN = of("PEN")
@@ -547,6 +549,7 @@ class Currency @JsonCreator private constructor(private val value: JsonField<Str
         NZD,
         OMR,
         OP,
+        OUSD,
         PAB,
         PEN,
         PGK,
@@ -759,6 +762,7 @@ class Currency @JsonCreator private constructor(private val value: JsonField<Str
         NZD,
         OMR,
         OP,
+        OUSD,
         PAB,
         PEN,
         PGK,
@@ -972,6 +976,7 @@ class Currency @JsonCreator private constructor(private val value: JsonField<Str
             NZD -> Value.NZD
             OMR -> Value.OMR
             OP -> Value.OP
+            OUSD -> Value.OUSD
             PAB -> Value.PAB
             PEN -> Value.PEN
             PGK -> Value.PGK
@@ -1186,6 +1191,7 @@ class Currency @JsonCreator private constructor(private val value: JsonField<Str
             NZD -> Known.NZD
             OMR -> Known.OMR
             OP -> Known.OP
+            OUSD -> Known.OUSD
             PAB -> Known.PAB
             PEN -> Known.PEN
             PGK -> Known.PGK

@@ -35,6 +35,8 @@ import com.moderntreasury.api.services.blocking.CounterpartyService
 import com.moderntreasury.api.services.blocking.CounterpartyServiceImpl
 import com.moderntreasury.api.services.blocking.DocumentService
 import com.moderntreasury.api.services.blocking.DocumentServiceImpl
+import com.moderntreasury.api.services.blocking.EmbeddableFlowService
+import com.moderntreasury.api.services.blocking.EmbeddableFlowServiceImpl
 import com.moderntreasury.api.services.blocking.EventService
 import com.moderntreasury.api.services.blocking.EventServiceImpl
 import com.moderntreasury.api.services.blocking.ExpectedPaymentService
@@ -277,6 +279,10 @@ class ModernTreasuryClientImpl(private val clientOptions: ClientOptions) : Moder
         IdentificationServiceImpl(clientOptionsWithUserAgent)
     }
 
+    private val embeddableFlows: EmbeddableFlowService by lazy {
+        EmbeddableFlowServiceImpl(clientOptionsWithUserAgent)
+    }
+
     override fun async(): ModernTreasuryClientAsync = async
 
     override fun withRawResponse(): ModernTreasuryClient.WithRawResponse = withRawResponse
@@ -369,6 +375,8 @@ class ModernTreasuryClientImpl(private val clientOptions: ClientOptions) : Moder
     override fun virtualAccountSettings(): VirtualAccountSettingService = virtualAccountSettings
 
     override fun identifications(): IdentificationService = identifications
+
+    override fun embeddableFlows(): EmbeddableFlowService = embeddableFlows
 
     override fun ping(params: ClientPingParams, requestOptions: RequestOptions): PingResponse =
         // get /api/ping
@@ -552,6 +560,10 @@ class ModernTreasuryClientImpl(private val clientOptions: ClientOptions) : Moder
             IdentificationServiceImpl.WithRawResponseImpl(clientOptions)
         }
 
+        private val embeddableFlows: EmbeddableFlowService.WithRawResponse by lazy {
+            EmbeddableFlowServiceImpl.WithRawResponseImpl(clientOptions)
+        }
+
         override fun withOptions(
             modifier: (ClientOptions.Builder) -> Unit
         ): ModernTreasuryClient.WithRawResponse =
@@ -654,6 +666,8 @@ class ModernTreasuryClientImpl(private val clientOptions: ClientOptions) : Moder
             virtualAccountSettings
 
         override fun identifications(): IdentificationService.WithRawResponse = identifications
+
+        override fun embeddableFlows(): EmbeddableFlowService.WithRawResponse = embeddableFlows
 
         private val pingHandler: Handler<PingResponse> =
             jsonHandler<PingResponse>(clientOptions.jsonMapper)
