@@ -22,6 +22,7 @@ import java.util.Collections
 import java.util.Objects
 
 /** create account_collection_flow */
+@Deprecated("deprecated")
 class AccountCollectionFlowCreateParams
 private constructor(
     private val body: AccountCollectionFlowCreateRequest,

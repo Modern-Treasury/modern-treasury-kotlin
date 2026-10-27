@@ -33,7 +33,7 @@ internal class ExternalAccountVerifyResponseTest {
                         .accountNumber("account_number")
                         .build()
                 )
-                .accountType(ExternalAccountType.BASE_WALLET)
+                .accountType(ExternalAccountType.CASH)
                 .cardId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .addContactDetail(
                     ContactDetail.builder()
@@ -140,7 +140,7 @@ internal class ExternalAccountVerifyResponseTest {
                             .accountNumber("account_number")
                             .build()
                     )
-                    .accountType(ExternalAccountType.BASE_WALLET)
+                    .accountType(ExternalAccountType.CASH)
                     .cardId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                     .addContactDetail(
                         ContactDetail.builder()
