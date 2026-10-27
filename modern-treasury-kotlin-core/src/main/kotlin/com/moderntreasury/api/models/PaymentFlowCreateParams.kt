@@ -21,6 +21,7 @@ import java.util.Collections
 import java.util.Objects
 
 /** create payment_flow */
+@Deprecated("deprecated")
 class PaymentFlowCreateParams
 private constructor(
     private val body: PaymentFlowCreateRequest,
