@@ -42,6 +42,7 @@ internal class PaymentOrderCreateParamsTest {
                     .build()
             )
             .effectiveDate(LocalDate.parse("2019-12-27"))
+            .endToEndId("end_to_end_id")
             .expiresAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
             .externalId("external_id")
             .fallbackType(PaymentOrderCreateParams.FallbackType.ACH)
@@ -283,6 +284,7 @@ internal class PaymentOrderCreateParamsTest {
                         .build()
                 )
                 .effectiveDate(LocalDate.parse("2019-12-27"))
+                .endToEndId("end_to_end_id")
                 .expiresAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .externalId("external_id")
                 .fallbackType(PaymentOrderCreateParams.FallbackType.ACH)
@@ -549,6 +551,7 @@ internal class PaymentOrderCreateParamsTest {
                                 .contentType("application/octet-stream")
                                 .build(),
                         "effective_date" to MultipartField.of(LocalDate.parse("2019-12-27")),
+                        "end_to_end_id" to MultipartField.of("end_to_end_id"),
                         "expires_at" to
                             MultipartField.of(OffsetDateTime.parse("2019-12-27T18:11:19.117Z")),
                         "external_id" to MultipartField.of("external_id"),
