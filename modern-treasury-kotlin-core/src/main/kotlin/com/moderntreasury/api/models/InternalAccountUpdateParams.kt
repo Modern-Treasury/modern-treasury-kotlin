@@ -12,6 +12,7 @@ import com.moderntreasury.api.core.JsonField
 import com.moderntreasury.api.core.JsonMissing
 import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.core.Params
+import com.moderntreasury.api.core.checkKnown
 import com.moderntreasury.api.core.http.Headers
 import com.moderntreasury.api.core.http.QueryParams
 import com.moderntreasury.api.core.toImmutable
@@ -29,6 +30,16 @@ private constructor(
 ) : Params {
 
     fun id(): String? = id
+
+    /**
+     * The ACH Company IDs allowed to debit this account. `null` allows every company. An empty
+     * array allows none. Debits from any other company are returned with code R10. Only applicable
+     * to debitable accounts under a Modern Treasury PSP connection.
+     *
+     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
+     *   the server responded with an unexpected value).
+     */
+    fun allowedAchDebitCompanyIds(): List<String>? = body.allowedAchDebitCompanyIds()
 
     /**
      * The Contra Ledger Account associated to this account.
@@ -114,6 +125,14 @@ private constructor(
      *   the server responded with an unexpected value).
      */
     fun status(): Status? = body.status()
+
+    /**
+     * Returns the raw JSON value of [allowedAchDebitCompanyIds].
+     *
+     * Unlike [allowedAchDebitCompanyIds], this method doesn't throw if the JSON field has an
+     * unexpected type.
+     */
+    fun _allowedAchDebitCompanyIds(): JsonField<List<String>> = body._allowedAchDebitCompanyIds()
 
     /**
      * Returns the raw JSON value of [contraLedgerAccountId].
@@ -229,14 +248,43 @@ private constructor(
          *
          * This is generally only useful if you are already constructing the body separately.
          * Otherwise, it's more convenient to use the top-level setters instead:
+         * - [allowedAchDebitCompanyIds]
          * - [contraLedgerAccountId]
          * - [counterpartyId]
          * - [externalId]
          * - [ledgerAccountId]
-         * - [metadata]
          * - etc.
          */
         fun body(body: InternalAccountUpdateRequest) = apply { this.body = body.toBuilder() }
+
+        /**
+         * The ACH Company IDs allowed to debit this account. `null` allows every company. An empty
+         * array allows none. Debits from any other company are returned with code R10. Only
+         * applicable to debitable accounts under a Modern Treasury PSP connection.
+         */
+        fun allowedAchDebitCompanyIds(allowedAchDebitCompanyIds: List<String>?) = apply {
+            body.allowedAchDebitCompanyIds(allowedAchDebitCompanyIds)
+        }
+
+        /**
+         * Sets [Builder.allowedAchDebitCompanyIds] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.allowedAchDebitCompanyIds] with a well-typed
+         * `List<String>` value instead. This method is primarily for setting the field to an
+         * undocumented or not yet supported value.
+         */
+        fun allowedAchDebitCompanyIds(allowedAchDebitCompanyIds: JsonField<List<String>>) = apply {
+            body.allowedAchDebitCompanyIds(allowedAchDebitCompanyIds)
+        }
+
+        /**
+         * Adds a single [String] to [allowedAchDebitCompanyIds].
+         *
+         * @throws IllegalStateException if the field was previously set to a non-list.
+         */
+        fun addAllowedAchDebitCompanyId(allowedAchDebitCompanyId: String) = apply {
+            body.addAllowedAchDebitCompanyId(allowedAchDebitCompanyId)
+        }
 
         /** The Contra Ledger Account associated to this account. */
         fun contraLedgerAccountId(contraLedgerAccountId: String) = apply {
@@ -531,6 +579,7 @@ private constructor(
     class InternalAccountUpdateRequest
     @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
+        private val allowedAchDebitCompanyIds: JsonField<List<String>>,
         private val contraLedgerAccountId: JsonField<String>,
         private val counterpartyId: JsonField<String>,
         private val externalId: JsonField<String>,
@@ -546,6 +595,9 @@ private constructor(
 
         @JsonCreator
         private constructor(
+            @JsonProperty("allowed_ach_debit_company_ids")
+            @ExcludeMissing
+            allowedAchDebitCompanyIds: JsonField<List<String>> = JsonMissing.of(),
             @JsonProperty("contra_ledger_account_id")
             @ExcludeMissing
             contraLedgerAccountId: JsonField<String> = JsonMissing.of(),
@@ -573,6 +625,7 @@ private constructor(
             partyType: JsonField<PartyType> = JsonMissing.of(),
             @JsonProperty("status") @ExcludeMissing status: JsonField<Status> = JsonMissing.of(),
         ) : this(
+            allowedAchDebitCompanyIds,
             contraLedgerAccountId,
             counterpartyId,
             externalId,
@@ -585,6 +638,17 @@ private constructor(
             status,
             mutableMapOf(),
         )
+
+        /**
+         * The ACH Company IDs allowed to debit this account. `null` allows every company. An empty
+         * array allows none. Debits from any other company are returned with code R10. Only
+         * applicable to debitable accounts under a Modern Treasury PSP connection.
+         *
+         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
+         *   if the server responded with an unexpected value).
+         */
+        fun allowedAchDebitCompanyIds(): List<String>? =
+            allowedAchDebitCompanyIds.getNullable("allowed_ach_debit_company_ids")
 
         /**
          * The Contra Ledger Account associated to this account.
@@ -671,6 +735,16 @@ private constructor(
          *   if the server responded with an unexpected value).
          */
         fun status(): Status? = status.getNullable("status")
+
+        /**
+         * Returns the raw JSON value of [allowedAchDebitCompanyIds].
+         *
+         * Unlike [allowedAchDebitCompanyIds], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
+        @JsonProperty("allowed_ach_debit_company_ids")
+        @ExcludeMissing
+        fun _allowedAchDebitCompanyIds(): JsonField<List<String>> = allowedAchDebitCompanyIds
 
         /**
          * Returns the raw JSON value of [contraLedgerAccountId].
@@ -785,6 +859,7 @@ private constructor(
         /** A builder for [InternalAccountUpdateRequest]. */
         class Builder internal constructor() {
 
+            private var allowedAchDebitCompanyIds: JsonField<MutableList<String>>? = null
             private var contraLedgerAccountId: JsonField<String> = JsonMissing.of()
             private var counterpartyId: JsonField<String> = JsonMissing.of()
             private var externalId: JsonField<String> = JsonMissing.of()
@@ -798,6 +873,10 @@ private constructor(
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(internalAccountUpdateRequest: InternalAccountUpdateRequest) = apply {
+                allowedAchDebitCompanyIds =
+                    internalAccountUpdateRequest.allowedAchDebitCompanyIds.map {
+                        it.toMutableList()
+                    }
                 contraLedgerAccountId = internalAccountUpdateRequest.contraLedgerAccountId
                 counterpartyId = internalAccountUpdateRequest.counterpartyId
                 externalId = internalAccountUpdateRequest.externalId
@@ -810,6 +889,39 @@ private constructor(
                 status = internalAccountUpdateRequest.status
                 additionalProperties =
                     internalAccountUpdateRequest.additionalProperties.toMutableMap()
+            }
+
+            /**
+             * The ACH Company IDs allowed to debit this account. `null` allows every company. An
+             * empty array allows none. Debits from any other company are returned with code R10.
+             * Only applicable to debitable accounts under a Modern Treasury PSP connection.
+             */
+            fun allowedAchDebitCompanyIds(allowedAchDebitCompanyIds: List<String>?) =
+                allowedAchDebitCompanyIds(JsonField.ofNullable(allowedAchDebitCompanyIds))
+
+            /**
+             * Sets [Builder.allowedAchDebitCompanyIds] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.allowedAchDebitCompanyIds] with a well-typed
+             * `List<String>` value instead. This method is primarily for setting the field to an
+             * undocumented or not yet supported value.
+             */
+            fun allowedAchDebitCompanyIds(allowedAchDebitCompanyIds: JsonField<List<String>>) =
+                apply {
+                    this.allowedAchDebitCompanyIds =
+                        allowedAchDebitCompanyIds.map { it.toMutableList() }
+                }
+
+            /**
+             * Adds a single [String] to [allowedAchDebitCompanyIds].
+             *
+             * @throws IllegalStateException if the field was previously set to a non-list.
+             */
+            fun addAllowedAchDebitCompanyId(allowedAchDebitCompanyId: String) = apply {
+                allowedAchDebitCompanyIds =
+                    (allowedAchDebitCompanyIds ?: JsonField.of(mutableListOf())).also {
+                        checkKnown("allowedAchDebitCompanyIds", it).add(allowedAchDebitCompanyId)
+                    }
             }
 
             /** The Contra Ledger Account associated to this account. */
@@ -986,6 +1098,7 @@ private constructor(
              */
             fun build(): InternalAccountUpdateRequest =
                 InternalAccountUpdateRequest(
+                    (allowedAchDebitCompanyIds ?: JsonMissing.of()).map { it.toImmutable() },
                     contraLedgerAccountId,
                     counterpartyId,
                     externalId,
@@ -1016,6 +1129,7 @@ private constructor(
                 return@apply
             }
 
+            allowedAchDebitCompanyIds()
             contraLedgerAccountId()
             counterpartyId()
             externalId()
@@ -1044,7 +1158,8 @@ private constructor(
          * Used for best match union deserialization.
          */
         internal fun validity(): Int =
-            (if (contraLedgerAccountId.asKnown() == null) 0 else 1) +
+            (allowedAchDebitCompanyIds.asKnown()?.size ?: 0) +
+                (if (contraLedgerAccountId.asKnown() == null) 0 else 1) +
                 (if (counterpartyId.asKnown() == null) 0 else 1) +
                 (if (externalId.asKnown() == null) 0 else 1) +
                 (if (ledgerAccountId.asKnown() == null) 0 else 1) +
@@ -1061,6 +1176,7 @@ private constructor(
             }
 
             return other is InternalAccountUpdateRequest &&
+                allowedAchDebitCompanyIds == other.allowedAchDebitCompanyIds &&
                 contraLedgerAccountId == other.contraLedgerAccountId &&
                 counterpartyId == other.counterpartyId &&
                 externalId == other.externalId &&
@@ -1076,6 +1192,7 @@ private constructor(
 
         private val hashCode: Int by lazy {
             Objects.hash(
+                allowedAchDebitCompanyIds,
                 contraLedgerAccountId,
                 counterpartyId,
                 externalId,
@@ -1093,7 +1210,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "InternalAccountUpdateRequest{contraLedgerAccountId=$contraLedgerAccountId, counterpartyId=$counterpartyId, externalId=$externalId, ledgerAccountId=$ledgerAccountId, metadata=$metadata, name=$name, parentAccountId=$parentAccountId, partyAddress=$partyAddress, partyType=$partyType, status=$status, additionalProperties=$additionalProperties}"
+            "InternalAccountUpdateRequest{allowedAchDebitCompanyIds=$allowedAchDebitCompanyIds, contraLedgerAccountId=$contraLedgerAccountId, counterpartyId=$counterpartyId, externalId=$externalId, ledgerAccountId=$ledgerAccountId, metadata=$metadata, name=$name, parentAccountId=$parentAccountId, partyAddress=$partyAddress, partyType=$partyType, status=$status, additionalProperties=$additionalProperties}"
     }
 
     /**

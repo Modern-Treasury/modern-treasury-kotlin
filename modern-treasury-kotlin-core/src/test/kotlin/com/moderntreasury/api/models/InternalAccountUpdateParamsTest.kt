@@ -12,6 +12,7 @@ internal class InternalAccountUpdateParamsTest {
     fun create() {
         InternalAccountUpdateParams.builder()
             .id("id")
+            .addAllowedAchDebitCompanyId("x")
             .contraLedgerAccountId("contra_ledger_account_id")
             .counterpartyId("counterparty_id")
             .externalId("external_id")
@@ -52,6 +53,7 @@ internal class InternalAccountUpdateParamsTest {
         val params =
             InternalAccountUpdateParams.builder()
                 .id("id")
+                .addAllowedAchDebitCompanyId("x")
                 .contraLedgerAccountId("contra_ledger_account_id")
                 .counterpartyId("counterparty_id")
                 .externalId("external_id")
@@ -79,6 +81,7 @@ internal class InternalAccountUpdateParamsTest {
 
         val body = params._body()
 
+        assertThat(body.allowedAchDebitCompanyIds()).containsExactly("x")
         assertThat(body.contraLedgerAccountId()).isEqualTo("contra_ledger_account_id")
         assertThat(body.counterpartyId()).isEqualTo("counterparty_id")
         assertThat(body.externalId()).isEqualTo("external_id")
