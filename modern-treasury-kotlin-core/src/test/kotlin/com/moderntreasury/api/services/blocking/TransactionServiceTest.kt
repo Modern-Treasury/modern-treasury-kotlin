@@ -5,8 +5,9 @@ package com.moderntreasury.api.services.blocking
 import com.moderntreasury.api.TestServerExtension
 import com.moderntreasury.api.client.okhttp.ModernTreasuryOkHttpClient
 import com.moderntreasury.api.core.JsonValue
-import com.moderntreasury.api.models.TransactionCreateParams
+import com.moderntreasury.api.models.TransactionCreateRequest
 import com.moderntreasury.api.models.TransactionUpdateParams
+import com.moderntreasury.api.models.TransactionUpdateRequest
 import java.time.LocalDate
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -26,7 +27,7 @@ internal class TransactionServiceTest {
 
         val transaction =
             transactionService.create(
-                TransactionCreateParams.builder()
+                TransactionCreateRequest.builder()
                     .asOfDate(LocalDate.parse("2019-12-27"))
                     .direction("direction")
                     .internalAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
@@ -35,14 +36,14 @@ internal class TransactionServiceTest {
                     .amount(0L)
                     .amountString("amount_string")
                     .metadata(
-                        TransactionCreateParams.Metadata.builder()
+                        TransactionCreateRequest.Metadata.builder()
                             .putAdditionalProperty("foo", JsonValue.from("bar"))
                             .putAdditionalProperty("key", JsonValue.from("value"))
                             .putAdditionalProperty("modern", JsonValue.from("treasury"))
                             .build()
                     )
                     .posted(true)
-                    .type(TransactionCreateParams.Type.ACH)
+                    .type(TransactionCreateRequest.Type.ACH)
                     .vendorCustomerId("vendor_customer_id")
                     .vendorDescription("vendor_description")
                     .build()
@@ -80,9 +81,13 @@ internal class TransactionServiceTest {
             transactionService.update(
                 TransactionUpdateParams.builder()
                     .id("id")
-                    .metadata(
-                        TransactionUpdateParams.Metadata.builder()
-                            .putAdditionalProperty("foo", JsonValue.from("string"))
+                    .transactionUpdateRequest(
+                        TransactionUpdateRequest.builder()
+                            .metadata(
+                                TransactionUpdateRequest.Metadata.builder()
+                                    .putAdditionalProperty("foo", JsonValue.from("string"))
+                                    .build()
+                            )
                             .build()
                     )
                     .build()

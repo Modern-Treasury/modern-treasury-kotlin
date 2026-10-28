@@ -11,14 +11,10 @@ internal class EmbeddableFlowCreateParamsTest {
     fun create() {
         EmbeddableFlowCreateParams.builder()
             .options(
-                EmbeddableFlowCreateParams.Options.AccountCollectionFlowCreateRequest.builder()
+                AccountCollectionFlowCreateRequest.builder()
                     .counterpartyId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                     .addPaymentType("string")
-                    .addReceivingCountry(
-                        EmbeddableFlowCreateParams.Options.AccountCollectionFlowCreateRequest
-                            .ReceivingCountry
-                            .USA
-                    )
+                    .addReceivingCountry(AccountCollectionFlowCreateRequest.ReceivingCountry.USA)
                     .build()
             )
             .template(EmbeddableFlowCreateParams.Template.LEGAL_ENTITY_ONBOARDING)
@@ -30,13 +26,11 @@ internal class EmbeddableFlowCreateParamsTest {
         val params =
             EmbeddableFlowCreateParams.builder()
                 .options(
-                    EmbeddableFlowCreateParams.Options.AccountCollectionFlowCreateRequest.builder()
+                    AccountCollectionFlowCreateRequest.builder()
                         .counterpartyId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                         .addPaymentType("string")
                         .addReceivingCountry(
-                            EmbeddableFlowCreateParams.Options.AccountCollectionFlowCreateRequest
-                                .ReceivingCountry
-                                .USA
+                            AccountCollectionFlowCreateRequest.ReceivingCountry.USA
                         )
                         .build()
                 )
@@ -48,13 +42,11 @@ internal class EmbeddableFlowCreateParamsTest {
         assertThat(body.options())
             .isEqualTo(
                 EmbeddableFlowCreateParams.Options.ofAccountCollectionFlowCreateRequest(
-                    EmbeddableFlowCreateParams.Options.AccountCollectionFlowCreateRequest.builder()
+                    AccountCollectionFlowCreateRequest.builder()
                         .counterpartyId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                         .addPaymentType("string")
                         .addReceivingCountry(
-                            EmbeddableFlowCreateParams.Options.AccountCollectionFlowCreateRequest
-                                .ReceivingCountry
-                                .USA
+                            AccountCollectionFlowCreateRequest.ReceivingCountry.USA
                         )
                         .build()
                 )
@@ -68,7 +60,7 @@ internal class EmbeddableFlowCreateParamsTest {
         val params =
             EmbeddableFlowCreateParams.builder()
                 .options(
-                    EmbeddableFlowCreateParams.Options.AccountCollectionFlowCreateRequest.builder()
+                    AccountCollectionFlowCreateRequest.builder()
                         .counterpartyId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                         .addPaymentType("string")
                         .build()
@@ -81,7 +73,7 @@ internal class EmbeddableFlowCreateParamsTest {
         assertThat(body.options())
             .isEqualTo(
                 EmbeddableFlowCreateParams.Options.ofAccountCollectionFlowCreateRequest(
-                    EmbeddableFlowCreateParams.Options.AccountCollectionFlowCreateRequest.builder()
+                    AccountCollectionFlowCreateRequest.builder()
                         .counterpartyId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                         .addPaymentType("string")
                         .build()
