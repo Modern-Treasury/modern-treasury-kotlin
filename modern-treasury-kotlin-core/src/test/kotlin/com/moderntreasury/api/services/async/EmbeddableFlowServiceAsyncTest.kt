@@ -4,6 +4,7 @@ package com.moderntreasury.api.services.async
 
 import com.moderntreasury.api.TestServerExtension
 import com.moderntreasury.api.client.okhttp.ModernTreasuryOkHttpClientAsync
+import com.moderntreasury.api.models.AccountCollectionFlowCreateRequest
 import com.moderntreasury.api.models.EmbeddableFlowCreateParams
 import com.moderntreasury.api.models.EmbeddableFlowUpdateParams
 import org.junit.jupiter.api.Test
@@ -26,15 +27,11 @@ internal class EmbeddableFlowServiceAsyncTest {
             embeddableFlowServiceAsync.create(
                 EmbeddableFlowCreateParams.builder()
                     .options(
-                        EmbeddableFlowCreateParams.Options.AccountCollectionFlowCreateRequest
-                            .builder()
+                        AccountCollectionFlowCreateRequest.builder()
                             .counterpartyId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                             .addPaymentType("string")
                             .addReceivingCountry(
-                                EmbeddableFlowCreateParams.Options
-                                    .AccountCollectionFlowCreateRequest
-                                    .ReceivingCountry
-                                    .USA
+                                AccountCollectionFlowCreateRequest.ReceivingCountry.USA
                             )
                             .build()
                     )

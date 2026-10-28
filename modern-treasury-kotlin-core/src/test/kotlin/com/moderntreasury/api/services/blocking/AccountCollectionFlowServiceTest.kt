@@ -4,7 +4,7 @@ package com.moderntreasury.api.services.blocking
 
 import com.moderntreasury.api.TestServerExtension
 import com.moderntreasury.api.client.okhttp.ModernTreasuryOkHttpClient
-import com.moderntreasury.api.models.AccountCollectionFlowCreateParams
+import com.moderntreasury.api.models.AccountCollectionFlowCreateRequest
 import com.moderntreasury.api.models.AccountCollectionFlowUpdateParams
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -24,10 +24,10 @@ internal class AccountCollectionFlowServiceTest {
 
         val accountCollectionFlow =
             accountCollectionFlowService.create(
-                AccountCollectionFlowCreateParams.builder()
+                AccountCollectionFlowCreateRequest.builder()
                     .counterpartyId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                     .addPaymentType("string")
-                    .addReceivingCountry(AccountCollectionFlowCreateParams.ReceivingCountry.USA)
+                    .addReceivingCountry(AccountCollectionFlowCreateRequest.ReceivingCountry.USA)
                     .build()
             )
 

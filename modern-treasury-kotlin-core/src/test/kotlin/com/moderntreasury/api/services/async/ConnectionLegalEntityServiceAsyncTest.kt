@@ -13,6 +13,7 @@ import com.moderntreasury.api.models.IdentificationCreateRequest
 import com.moderntreasury.api.models.LegalEntityAddressCreateRequest
 import com.moderntreasury.api.models.LegalEntityAssociationInlineCreate
 import com.moderntreasury.api.models.LegalEntityIndustryClassification
+import com.moderntreasury.api.models.LegalEntityRegulator
 import com.moderntreasury.api.models.ThirdPartyVerification
 import com.moderntreasury.api.models.WealthAndEmploymentDetails
 import java.time.LocalDate
@@ -296,8 +297,7 @@ internal class ConnectionLegalEntityServiceAsyncTest {
                                             .prefix("prefix")
                                             .addPrimarySocialMediaSite("string")
                                             .addRegulator(
-                                                ChildLegalEntityCreate.LegalEntityRegulator
-                                                    .builder()
+                                                LegalEntityRegulator.builder()
                                                     .jurisdiction("jurisdiction")
                                                     .name("name")
                                                     .registrationNumber("registration_number")
@@ -444,8 +444,7 @@ internal class ConnectionLegalEntityServiceAsyncTest {
                             .prefix("prefix")
                             .addPrimarySocialMediaSite("string")
                             .addRegulator(
-                                ConnectionLegalEntityCreateParams.LegalEntity.LegalEntityRegulator
-                                    .builder()
+                                LegalEntityRegulator.builder()
                                     .jurisdiction("jurisdiction")
                                     .name("name")
                                     .registrationNumber("registration_number")
