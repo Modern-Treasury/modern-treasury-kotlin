@@ -31,12 +31,13 @@ internal class PaymentOrderCreateParamsTest {
             .currency(Currency.AED)
             .description("description")
             .addDocument(
-                PaymentOrderCreateParams.DocumentCreateRequest.builder()
+                PaymentOrderCreateParams.PaymentOrderDocumentCreateRequest.builder()
                     .file("Example data".byteInputStream())
                     .documentType("document_type")
                     .documentableId("documentable_id")
                     .documentableType(
-                        PaymentOrderCreateParams.DocumentCreateRequest.DocumentableType.CONNECTION
+                        PaymentOrderCreateParams.PaymentOrderDocumentCreateRequest.DocumentableType
+                            .CONNECTION
                     )
                     .build()
             )
@@ -270,12 +271,13 @@ internal class PaymentOrderCreateParamsTest {
                 .currency(Currency.AED)
                 .description("description")
                 .addDocument(
-                    PaymentOrderCreateParams.DocumentCreateRequest.builder()
+                    PaymentOrderCreateParams.PaymentOrderDocumentCreateRequest.builder()
                         .file("Example data".byteInputStream())
                         .documentType("document_type")
                         .documentableId("documentable_id")
                         .documentableType(
-                            PaymentOrderCreateParams.DocumentCreateRequest.DocumentableType
+                            PaymentOrderCreateParams.PaymentOrderDocumentCreateRequest
+                                .DocumentableType
                                 .CONNECTION
                         )
                         .build()
@@ -526,16 +528,18 @@ internal class PaymentOrderCreateParamsTest {
                         "description" to MultipartField.of("description"),
                         "documents" to
                             MultipartField.builder<
-                                    List<PaymentOrderCreateParams.DocumentCreateRequest>
+                                    List<PaymentOrderCreateParams.PaymentOrderDocumentCreateRequest>
                                 >()
                                 .value(
                                     listOf(
-                                        PaymentOrderCreateParams.DocumentCreateRequest.builder()
+                                        PaymentOrderCreateParams.PaymentOrderDocumentCreateRequest
+                                            .builder()
                                             .file("Example data".byteInputStream())
                                             .documentType("document_type")
                                             .documentableId("documentable_id")
                                             .documentableType(
-                                                PaymentOrderCreateParams.DocumentCreateRequest
+                                                PaymentOrderCreateParams
+                                                    .PaymentOrderDocumentCreateRequest
                                                     .DocumentableType
                                                     .CONNECTION
                                             )
