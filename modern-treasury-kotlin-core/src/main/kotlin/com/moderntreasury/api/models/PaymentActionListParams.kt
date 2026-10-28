@@ -737,6 +737,8 @@ private constructor(
 
         companion object {
 
+            val VOID = of("void")
+
             val STOP = of("stop")
 
             val ISSUE = of("issue")
@@ -746,6 +748,7 @@ private constructor(
 
         /** An enum containing [Type]'s known values. */
         enum class Known {
+            VOID,
             STOP,
             ISSUE,
         }
@@ -760,6 +763,7 @@ private constructor(
          * - It was constructed with an arbitrary value using the [of] method.
          */
         enum class Value {
+            VOID,
             STOP,
             ISSUE,
             /** An enum member indicating that [Type] was instantiated with an unknown value. */
@@ -775,6 +779,7 @@ private constructor(
          */
         fun value(): Value =
             when (this) {
+                VOID -> Value.VOID
                 STOP -> Value.STOP
                 ISSUE -> Value.ISSUE
                 else -> Value._UNKNOWN
@@ -791,6 +796,7 @@ private constructor(
          */
         fun known(): Known =
             when (this) {
+                VOID -> Known.VOID
                 STOP -> Known.STOP
                 ISSUE -> Known.ISSUE
                 else -> throw ModernTreasuryInvalidDataException("Unknown Type: $value")
