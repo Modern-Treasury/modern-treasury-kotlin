@@ -12,9 +12,13 @@ internal class RoutingDetailCreateParamsTest {
         RoutingDetailCreateParams.builder()
             .accountsType(RoutingDetailCreateParams.AccountsType.EXTERNAL_ACCOUNTS)
             .accountId("account_id")
-            .routingNumber("routing_number")
-            .routingNumberType(RoutingDetailCreateParams.RoutingNumberType.ABA)
-            .paymentType(RoutingDetailCreateParams.PaymentType.ACH)
+            .routingDetailCreateRequest(
+                RoutingDetailCreateRequest.builder()
+                    .routingNumber("routing_number")
+                    .routingNumberType(RoutingDetailCreateRequest.RoutingNumberType.ABA)
+                    .paymentType(RoutingDetailCreateRequest.PaymentType.ACH)
+                    .build()
+            )
             .build()
     }
 
@@ -24,8 +28,12 @@ internal class RoutingDetailCreateParamsTest {
             RoutingDetailCreateParams.builder()
                 .accountsType(RoutingDetailCreateParams.AccountsType.EXTERNAL_ACCOUNTS)
                 .accountId("account_id")
-                .routingNumber("routing_number")
-                .routingNumberType(RoutingDetailCreateParams.RoutingNumberType.ABA)
+                .routingDetailCreateRequest(
+                    RoutingDetailCreateRequest.builder()
+                        .routingNumber("routing_number")
+                        .routingNumberType(RoutingDetailCreateRequest.RoutingNumberType.ABA)
+                        .build()
+                )
                 .build()
 
         assertThat(params._pathParam(0)).isEqualTo("external_accounts")
@@ -40,17 +48,25 @@ internal class RoutingDetailCreateParamsTest {
             RoutingDetailCreateParams.builder()
                 .accountsType(RoutingDetailCreateParams.AccountsType.EXTERNAL_ACCOUNTS)
                 .accountId("account_id")
-                .routingNumber("routing_number")
-                .routingNumberType(RoutingDetailCreateParams.RoutingNumberType.ABA)
-                .paymentType(RoutingDetailCreateParams.PaymentType.ACH)
+                .routingDetailCreateRequest(
+                    RoutingDetailCreateRequest.builder()
+                        .routingNumber("routing_number")
+                        .routingNumberType(RoutingDetailCreateRequest.RoutingNumberType.ABA)
+                        .paymentType(RoutingDetailCreateRequest.PaymentType.ACH)
+                        .build()
+                )
                 .build()
 
         val body = params._body()
 
-        assertThat(body.routingNumber()).isEqualTo("routing_number")
-        assertThat(body.routingNumberType())
-            .isEqualTo(RoutingDetailCreateParams.RoutingNumberType.ABA)
-        assertThat(body.paymentType()).isEqualTo(RoutingDetailCreateParams.PaymentType.ACH)
+        assertThat(body)
+            .isEqualTo(
+                RoutingDetailCreateRequest.builder()
+                    .routingNumber("routing_number")
+                    .routingNumberType(RoutingDetailCreateRequest.RoutingNumberType.ABA)
+                    .paymentType(RoutingDetailCreateRequest.PaymentType.ACH)
+                    .build()
+            )
     }
 
     @Test
@@ -59,14 +75,22 @@ internal class RoutingDetailCreateParamsTest {
             RoutingDetailCreateParams.builder()
                 .accountsType(RoutingDetailCreateParams.AccountsType.EXTERNAL_ACCOUNTS)
                 .accountId("account_id")
-                .routingNumber("routing_number")
-                .routingNumberType(RoutingDetailCreateParams.RoutingNumberType.ABA)
+                .routingDetailCreateRequest(
+                    RoutingDetailCreateRequest.builder()
+                        .routingNumber("routing_number")
+                        .routingNumberType(RoutingDetailCreateRequest.RoutingNumberType.ABA)
+                        .build()
+                )
                 .build()
 
         val body = params._body()
 
-        assertThat(body.routingNumber()).isEqualTo("routing_number")
-        assertThat(body.routingNumberType())
-            .isEqualTo(RoutingDetailCreateParams.RoutingNumberType.ABA)
+        assertThat(body)
+            .isEqualTo(
+                RoutingDetailCreateRequest.builder()
+                    .routingNumber("routing_number")
+                    .routingNumberType(RoutingDetailCreateRequest.RoutingNumberType.ABA)
+                    .build()
+            )
     }
 }

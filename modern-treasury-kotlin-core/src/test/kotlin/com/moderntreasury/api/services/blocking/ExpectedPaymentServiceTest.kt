@@ -6,11 +6,13 @@ import com.moderntreasury.api.TestServerExtension
 import com.moderntreasury.api.client.okhttp.ModernTreasuryOkHttpClient
 import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.models.Currency
-import com.moderntreasury.api.models.ExpectedPaymentCreateParams
+import com.moderntreasury.api.models.ExpectedPaymentCreateRequest
 import com.moderntreasury.api.models.ExpectedPaymentType
 import com.moderntreasury.api.models.ExpectedPaymentUpdateParams
+import com.moderntreasury.api.models.ExpectedPaymentUpdateRequest
 import com.moderntreasury.api.models.LedgerEntryCreateRequest
 import com.moderntreasury.api.models.LedgerTransactionCreateRequest
+import com.moderntreasury.api.models.LineItemRequest
 import com.moderntreasury.api.models.ReconciliationRule
 import com.moderntreasury.api.models.TransactionDirection
 import java.time.LocalDate
@@ -33,15 +35,15 @@ internal class ExpectedPaymentServiceTest {
 
         val expectedPayment =
             expectedPaymentService.create(
-                ExpectedPaymentCreateParams.builder()
+                ExpectedPaymentCreateRequest.builder()
                     .amountLowerBound(0L)
                     .amountReconciled(0L)
                     .amountReconciledDirection(
-                        ExpectedPaymentCreateParams.AmountReconciledDirection.CREDIT
+                        ExpectedPaymentCreateRequest.AmountReconciledDirection.CREDIT
                     )
                     .amountUnreconciled(0L)
                     .amountUnreconciledDirection(
-                        ExpectedPaymentCreateParams.AmountUnreconciledDirection.CREDIT
+                        ExpectedPaymentCreateRequest.AmountUnreconciledDirection.CREDIT
                     )
                     .amountUpperBound(0L)
                     .counterpartyId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
@@ -49,7 +51,7 @@ internal class ExpectedPaymentServiceTest {
                     .dateLowerBound(LocalDate.parse("2019-12-27"))
                     .dateUpperBound(LocalDate.parse("2019-12-27"))
                     .description("description")
-                    .direction(ExpectedPaymentCreateParams.Direction.CREDIT)
+                    .direction(ExpectedPaymentCreateRequest.Direction.CREDIT)
                     .externalId("external_id")
                     .internalAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                     .ledgerTransaction(
@@ -110,12 +112,12 @@ internal class ExpectedPaymentServiceTest {
                     )
                     .ledgerTransactionId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                     .addLineItem(
-                        ExpectedPaymentCreateParams.LineItemRequest.builder()
+                        LineItemRequest.builder()
                             .amount(0L)
                             .accountingCategoryId("accounting_category_id")
                             .description("description")
                             .metadata(
-                                ExpectedPaymentCreateParams.LineItemRequest.Metadata.builder()
+                                LineItemRequest.Metadata.builder()
                                     .putAdditionalProperty("foo", JsonValue.from("bar"))
                                     .putAdditionalProperty("key", JsonValue.from("value"))
                                     .putAdditionalProperty("modern", JsonValue.from("treasury"))
@@ -124,7 +126,7 @@ internal class ExpectedPaymentServiceTest {
                             .build()
                     )
                     .metadata(
-                        ExpectedPaymentCreateParams.Metadata.builder()
+                        ExpectedPaymentCreateRequest.Metadata.builder()
                             .putAdditionalProperty("foo", JsonValue.from("bar"))
                             .putAdditionalProperty("key", JsonValue.from("value"))
                             .putAdditionalProperty("modern", JsonValue.from("treasury"))
@@ -188,55 +190,59 @@ internal class ExpectedPaymentServiceTest {
             expectedPaymentService.update(
                 ExpectedPaymentUpdateParams.builder()
                     .id("id")
-                    .amountLowerBound(0L)
-                    .amountReconciled(0L)
-                    .amountReconciledDirection(
-                        ExpectedPaymentUpdateParams.AmountReconciledDirection.CREDIT
-                    )
-                    .amountUnreconciled(0L)
-                    .amountUnreconciledDirection(
-                        ExpectedPaymentUpdateParams.AmountUnreconciledDirection.CREDIT
-                    )
-                    .amountUpperBound(0L)
-                    .counterpartyId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                    .currency(Currency.AED)
-                    .dateLowerBound(LocalDate.parse("2019-12-27"))
-                    .dateUpperBound(LocalDate.parse("2019-12-27"))
-                    .description("description")
-                    .direction(ExpectedPaymentUpdateParams.Direction.CREDIT)
-                    .externalId("external_id")
-                    .internalAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                    .metadata(
-                        ExpectedPaymentUpdateParams.Metadata.builder()
-                            .putAdditionalProperty("foo", JsonValue.from("bar"))
-                            .putAdditionalProperty("key", JsonValue.from("value"))
-                            .putAdditionalProperty("modern", JsonValue.from("treasury"))
-                            .build()
-                    )
-                    .reconciliationFilters(JsonValue.from(mapOf<String, Any>()))
-                    .reconciliationGroups(JsonValue.from(mapOf<String, Any>()))
-                    .addReconciliationRuleVariable(
-                        ReconciliationRule.builder()
+                    .expectedPaymentUpdateRequest(
+                        ExpectedPaymentUpdateRequest.builder()
                             .amountLowerBound(0L)
+                            .amountReconciled(0L)
+                            .amountReconciledDirection(
+                                ExpectedPaymentUpdateRequest.AmountReconciledDirection.CREDIT
+                            )
+                            .amountUnreconciled(0L)
+                            .amountUnreconciledDirection(
+                                ExpectedPaymentUpdateRequest.AmountUnreconciledDirection.CREDIT
+                            )
                             .amountUpperBound(0L)
-                            .direction(ReconciliationRule.Direction.CREDIT)
-                            .internalAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                             .counterpartyId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                             .currency(Currency.AED)
-                            .customIdentifiers(
-                                ReconciliationRule.CustomIdentifiers.builder()
-                                    .putAdditionalProperty("foo", JsonValue.from("string"))
-                                    .build()
-                            )
                             .dateLowerBound(LocalDate.parse("2019-12-27"))
                             .dateUpperBound(LocalDate.parse("2019-12-27"))
-                            .type(ReconciliationRule.Type.ACH)
+                            .description("description")
+                            .direction(ExpectedPaymentUpdateRequest.Direction.CREDIT)
+                            .externalId("external_id")
+                            .internalAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                            .metadata(
+                                ExpectedPaymentUpdateRequest.Metadata.builder()
+                                    .putAdditionalProperty("foo", JsonValue.from("bar"))
+                                    .putAdditionalProperty("key", JsonValue.from("value"))
+                                    .putAdditionalProperty("modern", JsonValue.from("treasury"))
+                                    .build()
+                            )
+                            .reconciliationFilters(JsonValue.from(mapOf<String, Any>()))
+                            .reconciliationGroups(JsonValue.from(mapOf<String, Any>()))
+                            .addReconciliationRuleVariable(
+                                ReconciliationRule.builder()
+                                    .amountLowerBound(0L)
+                                    .amountUpperBound(0L)
+                                    .direction(ReconciliationRule.Direction.CREDIT)
+                                    .internalAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                                    .counterpartyId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                                    .currency(Currency.AED)
+                                    .customIdentifiers(
+                                        ReconciliationRule.CustomIdentifiers.builder()
+                                            .putAdditionalProperty("foo", JsonValue.from("string"))
+                                            .build()
+                                    )
+                                    .dateLowerBound(LocalDate.parse("2019-12-27"))
+                                    .dateUpperBound(LocalDate.parse("2019-12-27"))
+                                    .type(ReconciliationRule.Type.ACH)
+                                    .build()
+                            )
+                            .remittanceInformation("remittance_information")
+                            .statementDescriptor("statement_descriptor")
+                            .status(ExpectedPaymentUpdateRequest.Status.RECONCILED)
+                            .type(ExpectedPaymentType.ACH)
                             .build()
                     )
-                    .remittanceInformation("remittance_information")
-                    .statementDescriptor("statement_descriptor")
-                    .status(ExpectedPaymentUpdateParams.Status.RECONCILED)
-                    .type(ExpectedPaymentType.ACH)
                     .build()
             )
 

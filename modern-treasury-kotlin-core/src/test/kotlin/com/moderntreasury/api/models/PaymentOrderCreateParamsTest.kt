@@ -20,7 +20,7 @@ internal class PaymentOrderCreateParamsTest {
             .originatingAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
             .type(PaymentOrderType.ACH)
             .accounting(
-                PaymentOrderCreateParams.Accounting.builder()
+                Accounting.builder()
                     .accountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                     .classId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                     .build()
@@ -31,12 +31,13 @@ internal class PaymentOrderCreateParamsTest {
             .currency(Currency.AED)
             .description("description")
             .addDocument(
-                PaymentOrderCreateParams.DocumentCreateRequest.builder()
+                PaymentOrderCreateParams.PaymentOrderDocumentCreateRequest.builder()
                     .file("Example data".byteInputStream())
                     .documentType("document_type")
                     .documentableId("documentable_id")
                     .documentableType(
-                        PaymentOrderCreateParams.DocumentCreateRequest.DocumentableType.CONNECTION
+                        PaymentOrderCreateParams.PaymentOrderDocumentCreateRequest.DocumentableType
+                            .CONNECTION
                     )
                     .build()
             )
@@ -101,12 +102,12 @@ internal class PaymentOrderCreateParamsTest {
             )
             .ledgerTransactionId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
             .addLineItem(
-                PaymentOrderCreateParams.LineItemRequest.builder()
+                LineItemRequest.builder()
                     .amount(0L)
                     .accountingCategoryId("accounting_category_id")
                     .description("description")
                     .metadata(
-                        PaymentOrderCreateParams.LineItemRequest.Metadata.builder()
+                        LineItemRequest.Metadata.builder()
                             .putAdditionalProperty("foo", JsonValue.from("bar"))
                             .putAdditionalProperty("key", JsonValue.from("value"))
                             .putAdditionalProperty("modern", JsonValue.from("treasury"))
@@ -259,7 +260,7 @@ internal class PaymentOrderCreateParamsTest {
                 .originatingAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .type(PaymentOrderType.ACH)
                 .accounting(
-                    PaymentOrderCreateParams.Accounting.builder()
+                    Accounting.builder()
                         .accountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                         .classId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                         .build()
@@ -270,12 +271,13 @@ internal class PaymentOrderCreateParamsTest {
                 .currency(Currency.AED)
                 .description("description")
                 .addDocument(
-                    PaymentOrderCreateParams.DocumentCreateRequest.builder()
+                    PaymentOrderCreateParams.PaymentOrderDocumentCreateRequest.builder()
                         .file("Example data".byteInputStream())
                         .documentType("document_type")
                         .documentableId("documentable_id")
                         .documentableType(
-                            PaymentOrderCreateParams.DocumentCreateRequest.DocumentableType
+                            PaymentOrderCreateParams.PaymentOrderDocumentCreateRequest
+                                .DocumentableType
                                 .CONNECTION
                         )
                         .build()
@@ -343,12 +345,12 @@ internal class PaymentOrderCreateParamsTest {
                 )
                 .ledgerTransactionId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .addLineItem(
-                    PaymentOrderCreateParams.LineItemRequest.builder()
+                    LineItemRequest.builder()
                         .amount(0L)
                         .accountingCategoryId("accounting_category_id")
                         .description("description")
                         .metadata(
-                            PaymentOrderCreateParams.LineItemRequest.Metadata.builder()
+                            LineItemRequest.Metadata.builder()
                                 .putAdditionalProperty("foo", JsonValue.from("bar"))
                                 .putAdditionalProperty("key", JsonValue.from("value"))
                                 .putAdditionalProperty("modern", JsonValue.from("treasury"))
@@ -511,7 +513,7 @@ internal class PaymentOrderCreateParamsTest {
                         "type" to MultipartField.of(PaymentOrderType.ACH),
                         "accounting" to
                             MultipartField.of(
-                                PaymentOrderCreateParams.Accounting.builder()
+                                Accounting.builder()
                                     .accountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                                     .classId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                                     .build()
@@ -526,16 +528,18 @@ internal class PaymentOrderCreateParamsTest {
                         "description" to MultipartField.of("description"),
                         "documents" to
                             MultipartField.builder<
-                                    List<PaymentOrderCreateParams.DocumentCreateRequest>
+                                    List<PaymentOrderCreateParams.PaymentOrderDocumentCreateRequest>
                                 >()
                                 .value(
                                     listOf(
-                                        PaymentOrderCreateParams.DocumentCreateRequest.builder()
+                                        PaymentOrderCreateParams.PaymentOrderDocumentCreateRequest
+                                            .builder()
                                             .file("Example data".byteInputStream())
                                             .documentType("document_type")
                                             .documentableId("documentable_id")
                                             .documentableType(
-                                                PaymentOrderCreateParams.DocumentCreateRequest
+                                                PaymentOrderCreateParams
+                                                    .PaymentOrderDocumentCreateRequest
                                                     .DocumentableType
                                                     .CONNECTION
                                             )
@@ -633,13 +637,12 @@ internal class PaymentOrderCreateParamsTest {
                         "line_items" to
                             MultipartField.of(
                                 listOf(
-                                    PaymentOrderCreateParams.LineItemRequest.builder()
+                                    LineItemRequest.builder()
                                         .amount(0L)
                                         .accountingCategoryId("accounting_category_id")
                                         .description("description")
                                         .metadata(
-                                            PaymentOrderCreateParams.LineItemRequest.Metadata
-                                                .builder()
+                                            LineItemRequest.Metadata.builder()
                                                 .putAdditionalProperty("foo", JsonValue.from("bar"))
                                                 .putAdditionalProperty(
                                                     "key",
