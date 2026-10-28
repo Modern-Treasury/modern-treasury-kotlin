@@ -4,7 +4,7 @@ package com.moderntreasury.api.services.blocking
 
 import com.moderntreasury.api.TestServerExtension
 import com.moderntreasury.api.client.okhttp.ModernTreasuryOkHttpClient
-import com.moderntreasury.api.models.PaymentFlowCreateParams
+import com.moderntreasury.api.models.PaymentFlowCreateRequest
 import com.moderntreasury.api.models.PaymentFlowUpdateParams
 import java.time.LocalDate
 import org.junit.jupiter.api.Test
@@ -25,11 +25,11 @@ internal class PaymentFlowServiceTest {
 
         val paymentFlow =
             paymentFlowService.create(
-                PaymentFlowCreateParams.builder()
+                PaymentFlowCreateRequest.builder()
                     .amount(0L)
                     .counterpartyId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                     .currency("currency")
-                    .direction(PaymentFlowCreateParams.Direction.CREDIT)
+                    .direction(PaymentFlowCreateRequest.Direction.CREDIT)
                     .originatingAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                     .dueDate(LocalDate.parse("2019-12-27"))
                     .build()

@@ -20,7 +20,7 @@ internal class PaymentOrderCreateParamsTest {
             .originatingAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
             .type(PaymentOrderType.ACH)
             .accounting(
-                PaymentOrderCreateParams.Accounting.builder()
+                Accounting.builder()
                     .accountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                     .classId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                     .build()
@@ -101,12 +101,12 @@ internal class PaymentOrderCreateParamsTest {
             )
             .ledgerTransactionId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
             .addLineItem(
-                PaymentOrderCreateParams.LineItemRequest.builder()
+                LineItemRequest.builder()
                     .amount(0L)
                     .accountingCategoryId("accounting_category_id")
                     .description("description")
                     .metadata(
-                        PaymentOrderCreateParams.LineItemRequest.Metadata.builder()
+                        LineItemRequest.Metadata.builder()
                             .putAdditionalProperty("foo", JsonValue.from("bar"))
                             .putAdditionalProperty("key", JsonValue.from("value"))
                             .putAdditionalProperty("modern", JsonValue.from("treasury"))
@@ -259,7 +259,7 @@ internal class PaymentOrderCreateParamsTest {
                 .originatingAccountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .type(PaymentOrderType.ACH)
                 .accounting(
-                    PaymentOrderCreateParams.Accounting.builder()
+                    Accounting.builder()
                         .accountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                         .classId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                         .build()
@@ -343,12 +343,12 @@ internal class PaymentOrderCreateParamsTest {
                 )
                 .ledgerTransactionId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .addLineItem(
-                    PaymentOrderCreateParams.LineItemRequest.builder()
+                    LineItemRequest.builder()
                         .amount(0L)
                         .accountingCategoryId("accounting_category_id")
                         .description("description")
                         .metadata(
-                            PaymentOrderCreateParams.LineItemRequest.Metadata.builder()
+                            LineItemRequest.Metadata.builder()
                                 .putAdditionalProperty("foo", JsonValue.from("bar"))
                                 .putAdditionalProperty("key", JsonValue.from("value"))
                                 .putAdditionalProperty("modern", JsonValue.from("treasury"))
@@ -511,7 +511,7 @@ internal class PaymentOrderCreateParamsTest {
                         "type" to MultipartField.of(PaymentOrderType.ACH),
                         "accounting" to
                             MultipartField.of(
-                                PaymentOrderCreateParams.Accounting.builder()
+                                Accounting.builder()
                                     .accountId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                                     .classId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                                     .build()
@@ -633,13 +633,12 @@ internal class PaymentOrderCreateParamsTest {
                         "line_items" to
                             MultipartField.of(
                                 listOf(
-                                    PaymentOrderCreateParams.LineItemRequest.builder()
+                                    LineItemRequest.builder()
                                         .amount(0L)
                                         .accountingCategoryId("accounting_category_id")
                                         .description("description")
                                         .metadata(
-                                            PaymentOrderCreateParams.LineItemRequest.Metadata
-                                                .builder()
+                                            LineItemRequest.Metadata.builder()
                                                 .putAdditionalProperty("foo", JsonValue.from("bar"))
                                                 .putAdditionalProperty(
                                                     "key",

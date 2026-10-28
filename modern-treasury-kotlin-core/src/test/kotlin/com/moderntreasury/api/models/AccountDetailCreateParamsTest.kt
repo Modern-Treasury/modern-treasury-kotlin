@@ -12,8 +12,14 @@ internal class AccountDetailCreateParamsTest {
         AccountDetailCreateParams.builder()
             .accountsType(AccountDetailCreateParams.AccountsType.EXTERNAL_ACCOUNTS)
             .accountId("account_id")
-            .accountNumber("account_number")
-            .accountNumberType(AccountDetailCreateParams.AccountNumberType.ARBITRUM_ADDRESS)
+            .accountDetailCreateRequest(
+                AccountDetailCreateRequest.builder()
+                    .accountNumber("account_number")
+                    .accountNumberType(
+                        AccountDetailCreateRequest.AccountNumberType.ARBITRUM_ADDRESS
+                    )
+                    .build()
+            )
             .build()
     }
 
@@ -23,7 +29,9 @@ internal class AccountDetailCreateParamsTest {
             AccountDetailCreateParams.builder()
                 .accountsType(AccountDetailCreateParams.AccountsType.EXTERNAL_ACCOUNTS)
                 .accountId("account_id")
-                .accountNumber("account_number")
+                .accountDetailCreateRequest(
+                    AccountDetailCreateRequest.builder().accountNumber("account_number").build()
+                )
                 .build()
 
         assertThat(params._pathParam(0)).isEqualTo("external_accounts")
@@ -38,15 +46,27 @@ internal class AccountDetailCreateParamsTest {
             AccountDetailCreateParams.builder()
                 .accountsType(AccountDetailCreateParams.AccountsType.EXTERNAL_ACCOUNTS)
                 .accountId("account_id")
-                .accountNumber("account_number")
-                .accountNumberType(AccountDetailCreateParams.AccountNumberType.ARBITRUM_ADDRESS)
+                .accountDetailCreateRequest(
+                    AccountDetailCreateRequest.builder()
+                        .accountNumber("account_number")
+                        .accountNumberType(
+                            AccountDetailCreateRequest.AccountNumberType.ARBITRUM_ADDRESS
+                        )
+                        .build()
+                )
                 .build()
 
         val body = params._body()
 
-        assertThat(body.accountNumber()).isEqualTo("account_number")
-        assertThat(body.accountNumberType())
-            .isEqualTo(AccountDetailCreateParams.AccountNumberType.ARBITRUM_ADDRESS)
+        assertThat(body)
+            .isEqualTo(
+                AccountDetailCreateRequest.builder()
+                    .accountNumber("account_number")
+                    .accountNumberType(
+                        AccountDetailCreateRequest.AccountNumberType.ARBITRUM_ADDRESS
+                    )
+                    .build()
+            )
     }
 
     @Test
@@ -55,11 +75,14 @@ internal class AccountDetailCreateParamsTest {
             AccountDetailCreateParams.builder()
                 .accountsType(AccountDetailCreateParams.AccountsType.EXTERNAL_ACCOUNTS)
                 .accountId("account_id")
-                .accountNumber("account_number")
+                .accountDetailCreateRequest(
+                    AccountDetailCreateRequest.builder().accountNumber("account_number").build()
+                )
                 .build()
 
         val body = params._body()
 
-        assertThat(body.accountNumber()).isEqualTo("account_number")
+        assertThat(body)
+            .isEqualTo(AccountDetailCreateRequest.builder().accountNumber("account_number").build())
     }
 }

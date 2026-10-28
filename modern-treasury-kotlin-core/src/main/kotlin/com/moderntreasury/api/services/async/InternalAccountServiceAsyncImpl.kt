@@ -16,6 +16,7 @@ import com.moderntreasury.api.core.http.HttpResponseFor
 import com.moderntreasury.api.core.http.json
 import com.moderntreasury.api.core.http.parseable
 import com.moderntreasury.api.core.prepareAsync
+import com.moderntreasury.api.models.AccountCapability
 import com.moderntreasury.api.models.InternalAccount
 import com.moderntreasury.api.models.InternalAccountCreateParams
 import com.moderntreasury.api.models.InternalAccountListPageAsync
@@ -23,7 +24,6 @@ import com.moderntreasury.api.models.InternalAccountListParams
 import com.moderntreasury.api.models.InternalAccountRequestClosureParams
 import com.moderntreasury.api.models.InternalAccountRetrieveParams
 import com.moderntreasury.api.models.InternalAccountUpdateAccountCapabilityParams
-import com.moderntreasury.api.models.InternalAccountUpdateAccountCapabilityResponse
 import com.moderntreasury.api.models.InternalAccountUpdateParams
 import com.moderntreasury.api.services.async.internalAccounts.BalanceReportServiceAsync
 import com.moderntreasury.api.services.async.internalAccounts.BalanceReportServiceAsyncImpl
@@ -87,7 +87,7 @@ internal constructor(private val clientOptions: ClientOptions) : InternalAccount
     override suspend fun updateAccountCapability(
         params: InternalAccountUpdateAccountCapabilityParams,
         requestOptions: RequestOptions,
-    ): InternalAccountUpdateAccountCapabilityResponse =
+    ): AccountCapability =
         // patch /api/internal_accounts/{internal_account_id}/account_capabilities/{id}
         withRawResponse().updateAccountCapability(params, requestOptions).parse()
 
@@ -271,14 +271,13 @@ internal constructor(private val clientOptions: ClientOptions) : InternalAccount
             }
         }
 
-        private val updateAccountCapabilityHandler:
-            Handler<InternalAccountUpdateAccountCapabilityResponse> =
-            jsonHandler<InternalAccountUpdateAccountCapabilityResponse>(clientOptions.jsonMapper)
+        private val updateAccountCapabilityHandler: Handler<AccountCapability> =
+            jsonHandler<AccountCapability>(clientOptions.jsonMapper)
 
         override suspend fun updateAccountCapability(
             params: InternalAccountUpdateAccountCapabilityParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<InternalAccountUpdateAccountCapabilityResponse> {
+        ): HttpResponseFor<AccountCapability> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("id", params.id())
