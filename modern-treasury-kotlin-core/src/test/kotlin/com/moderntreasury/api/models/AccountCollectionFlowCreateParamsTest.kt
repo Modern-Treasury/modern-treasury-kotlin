@@ -10,9 +10,13 @@ internal class AccountCollectionFlowCreateParamsTest {
     @Test
     fun create() {
         AccountCollectionFlowCreateParams.builder()
-            .counterpartyId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-            .addPaymentType("string")
-            .addReceivingCountry(AccountCollectionFlowCreateParams.ReceivingCountry.USA)
+            .accountCollectionFlowCreateRequest(
+                AccountCollectionFlowCreateRequest.builder()
+                    .counterpartyId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                    .addPaymentType("string")
+                    .addReceivingCountry(AccountCollectionFlowCreateRequest.ReceivingCountry.USA)
+                    .build()
+            )
             .build()
     }
 
@@ -20,30 +24,49 @@ internal class AccountCollectionFlowCreateParamsTest {
     fun body() {
         val params =
             AccountCollectionFlowCreateParams.builder()
-                .counterpartyId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                .addPaymentType("string")
-                .addReceivingCountry(AccountCollectionFlowCreateParams.ReceivingCountry.USA)
+                .accountCollectionFlowCreateRequest(
+                    AccountCollectionFlowCreateRequest.builder()
+                        .counterpartyId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                        .addPaymentType("string")
+                        .addReceivingCountry(
+                            AccountCollectionFlowCreateRequest.ReceivingCountry.USA
+                        )
+                        .build()
+                )
                 .build()
 
         val body = params._body()
 
-        assertThat(body.counterpartyId()).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-        assertThat(body.paymentTypes()).containsExactly("string")
-        assertThat(body.receivingCountries())
-            .containsExactly(AccountCollectionFlowCreateParams.ReceivingCountry.USA)
+        assertThat(body)
+            .isEqualTo(
+                AccountCollectionFlowCreateRequest.builder()
+                    .counterpartyId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                    .addPaymentType("string")
+                    .addReceivingCountry(AccountCollectionFlowCreateRequest.ReceivingCountry.USA)
+                    .build()
+            )
     }
 
     @Test
     fun bodyWithoutOptionalFields() {
         val params =
             AccountCollectionFlowCreateParams.builder()
-                .counterpartyId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                .addPaymentType("string")
+                .accountCollectionFlowCreateRequest(
+                    AccountCollectionFlowCreateRequest.builder()
+                        .counterpartyId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                        .addPaymentType("string")
+                        .build()
+                )
                 .build()
 
         val body = params._body()
 
-        assertThat(body.counterpartyId()).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-        assertThat(body.paymentTypes()).containsExactly("string")
+        assertThat(body)
+            .isEqualTo(
+                AccountCollectionFlowCreateRequest.builder()
+                    .counterpartyId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                    .addPaymentType("string")
+                    .build()
+            )
     }
 }

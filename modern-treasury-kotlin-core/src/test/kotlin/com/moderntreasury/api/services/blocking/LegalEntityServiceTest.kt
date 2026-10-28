@@ -10,8 +10,9 @@ import com.moderntreasury.api.models.ChildLegalEntityCreate
 import com.moderntreasury.api.models.IdentificationCreateRequest
 import com.moderntreasury.api.models.LegalEntityAddressCreateRequest
 import com.moderntreasury.api.models.LegalEntityAssociationInlineCreate
-import com.moderntreasury.api.models.LegalEntityCreateParams
+import com.moderntreasury.api.models.LegalEntityCreateRequest
 import com.moderntreasury.api.models.LegalEntityIndustryClassification
+import com.moderntreasury.api.models.LegalEntityRegulator
 import com.moderntreasury.api.models.LegalEntityUpdateParams
 import com.moderntreasury.api.models.LegalEntityUpdateStatusParams
 import com.moderntreasury.api.models.ThirdPartyVerification
@@ -38,8 +39,8 @@ internal class LegalEntityServiceTest {
 
         val legalEntity =
             legalEntityService.create(
-                LegalEntityCreateParams.builder()
-                    .legalEntityType(LegalEntityCreateParams.LegalEntityType.BUSINESS)
+                LegalEntityCreateRequest.builder()
+                    .legalEntityType(LegalEntityCreateRequest.LegalEntityType.BUSINESS)
                     .addAddress(
                         LegalEntityAddressCreateRequest.builder()
                             .country("country")
@@ -68,7 +69,7 @@ internal class LegalEntityServiceTest {
                     )
                     .businessDescription("business_description")
                     .businessDesignation(
-                        LegalEntityCreateParams.BusinessDesignation.EXEMPT_FINANCIAL_INSTITUTION
+                        LegalEntityCreateRequest.BusinessDesignation.EXEMPT_FINANCIAL_INSTITUTION
                     )
                     .businessName("business_name")
                     .citizenshipCountry("citizenship_country")
@@ -78,9 +79,9 @@ internal class LegalEntityServiceTest {
                     .dateFormed(LocalDate.parse("2019-12-27"))
                     .dateOfBirth(LocalDate.parse("2019-12-27"))
                     .addDocument(
-                        LegalEntityCreateParams.Document.builder()
+                        LegalEntityCreateRequest.Document.builder()
                             .documentType(
-                                LegalEntityCreateParams.Document.DocumentType
+                                LegalEntityCreateRequest.Document.DocumentType
                                     .ARTICLES_OF_INCORPORATION
                             )
                             .fileData("file_data")
@@ -270,7 +271,7 @@ internal class LegalEntityServiceTest {
                                     .prefix("prefix")
                                     .addPrimarySocialMediaSite("string")
                                     .addRegulator(
-                                        ChildLegalEntityCreate.LegalEntityRegulator.builder()
+                                        LegalEntityRegulator.builder()
                                             .jurisdiction("jurisdiction")
                                             .name("name")
                                             .registrationNumber("registration_number")
@@ -372,10 +373,10 @@ internal class LegalEntityServiceTest {
                             .title("title")
                             .build()
                     )
-                    .legalStructure(LegalEntityCreateParams.LegalStructure.CORPORATION)
+                    .legalStructure(LegalEntityCreateRequest.LegalStructure.CORPORATION)
                     .listedExchange("listed_exchange")
                     .metadata(
-                        LegalEntityCreateParams.Metadata.builder()
+                        LegalEntityCreateRequest.Metadata.builder()
                             .putAdditionalProperty("foo", JsonValue.from("bar"))
                             .putAdditionalProperty("key", JsonValue.from("value"))
                             .putAdditionalProperty("modern", JsonValue.from("treasury"))
@@ -385,7 +386,7 @@ internal class LegalEntityServiceTest {
                     .addOperatingJurisdiction("US")
                     .addOperatingJurisdiction("CA")
                     .addPhoneNumber(
-                        LegalEntityCreateParams.PhoneNumber.builder()
+                        LegalEntityCreateRequest.PhoneNumber.builder()
                             .phoneNumber("phone_number")
                             .build()
                     )
@@ -394,18 +395,18 @@ internal class LegalEntityServiceTest {
                     .prefix("prefix")
                     .addPrimarySocialMediaSite("string")
                     .addRegulator(
-                        LegalEntityCreateParams.LegalEntityRegulator.builder()
+                        LegalEntityRegulator.builder()
                             .jurisdiction("jurisdiction")
                             .name("name")
                             .registrationNumber("registration_number")
                             .build()
                     )
-                    .riskRating(LegalEntityCreateParams.RiskRating.LOW)
+                    .riskRating(LegalEntityCreateRequest.RiskRating.LOW)
                     .serviceProviderLegalEntityId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                    .status(LegalEntityCreateParams.Status.DRAFT)
+                    .status(LegalEntityCreateRequest.Status.DRAFT)
                     .suffix("suffix")
                     .termsOfUse(
-                        LegalEntityCreateParams.TermsOfUse.builder()
+                        LegalEntityCreateRequest.TermsOfUse.builder()
                             .acceptedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                             .ipAddress("ip_address")
                             .build()
@@ -594,7 +595,7 @@ internal class LegalEntityServiceTest {
                     .prefix("prefix")
                     .addPrimarySocialMediaSite("string")
                     .addRegulator(
-                        LegalEntityUpdateParams.LegalEntityRegulator.builder()
+                        LegalEntityRegulator.builder()
                             .jurisdiction("jurisdiction")
                             .name("name")
                             .registrationNumber("registration_number")

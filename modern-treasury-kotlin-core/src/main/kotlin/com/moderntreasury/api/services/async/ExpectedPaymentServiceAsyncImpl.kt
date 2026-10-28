@@ -98,7 +98,7 @@ internal constructor(private val clientOptions: ClientOptions) : ExpectedPayment
                     .method(HttpMethod.POST)
                     .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("api", "expected_payments")
-                    .body(json(clientOptions.jsonMapper, params._body()))
+                    .apply { params._body()?.let { body(json(clientOptions.jsonMapper, it)) } }
                     .build()
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
@@ -159,7 +159,7 @@ internal constructor(private val clientOptions: ClientOptions) : ExpectedPayment
                     .method(HttpMethod.PATCH)
                     .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("api", "expected_payments", params._pathParam(0))
-                    .body(json(clientOptions.jsonMapper, params._body()))
+                    .apply { params._body()?.let { body(json(clientOptions.jsonMapper, it)) } }
                     .build()
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))

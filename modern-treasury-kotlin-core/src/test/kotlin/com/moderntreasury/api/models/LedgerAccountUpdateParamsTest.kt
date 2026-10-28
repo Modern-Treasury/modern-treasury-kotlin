@@ -12,16 +12,20 @@ internal class LedgerAccountUpdateParamsTest {
     fun create() {
         LedgerAccountUpdateParams.builder()
             .id("id")
-            .description("description")
-            .externalId("external_id")
-            .metadata(
-                LedgerAccountUpdateParams.Metadata.builder()
-                    .putAdditionalProperty("foo", JsonValue.from("bar"))
-                    .putAdditionalProperty("key", JsonValue.from("value"))
-                    .putAdditionalProperty("modern", JsonValue.from("treasury"))
+            .ledgerAccountUpdateRequest(
+                LedgerAccountUpdateRequest.builder()
+                    .description("description")
+                    .externalId("external_id")
+                    .metadata(
+                        LedgerAccountUpdateRequest.Metadata.builder()
+                            .putAdditionalProperty("foo", JsonValue.from("bar"))
+                            .putAdditionalProperty("key", JsonValue.from("value"))
+                            .putAdditionalProperty("modern", JsonValue.from("treasury"))
+                            .build()
+                    )
+                    .name("name")
                     .build()
             )
-            .name("name")
             .build()
     }
 
@@ -39,31 +43,39 @@ internal class LedgerAccountUpdateParamsTest {
         val params =
             LedgerAccountUpdateParams.builder()
                 .id("id")
-                .description("description")
-                .externalId("external_id")
-                .metadata(
-                    LedgerAccountUpdateParams.Metadata.builder()
-                        .putAdditionalProperty("foo", JsonValue.from("bar"))
-                        .putAdditionalProperty("key", JsonValue.from("value"))
-                        .putAdditionalProperty("modern", JsonValue.from("treasury"))
+                .ledgerAccountUpdateRequest(
+                    LedgerAccountUpdateRequest.builder()
+                        .description("description")
+                        .externalId("external_id")
+                        .metadata(
+                            LedgerAccountUpdateRequest.Metadata.builder()
+                                .putAdditionalProperty("foo", JsonValue.from("bar"))
+                                .putAdditionalProperty("key", JsonValue.from("value"))
+                                .putAdditionalProperty("modern", JsonValue.from("treasury"))
+                                .build()
+                        )
+                        .name("name")
                         .build()
                 )
-                .name("name")
                 .build()
 
         val body = params._body()
 
-        assertThat(body.description()).isEqualTo("description")
-        assertThat(body.externalId()).isEqualTo("external_id")
-        assertThat(body.metadata())
+        assertThat(body)
             .isEqualTo(
-                LedgerAccountUpdateParams.Metadata.builder()
-                    .putAdditionalProperty("foo", JsonValue.from("bar"))
-                    .putAdditionalProperty("key", JsonValue.from("value"))
-                    .putAdditionalProperty("modern", JsonValue.from("treasury"))
+                LedgerAccountUpdateRequest.builder()
+                    .description("description")
+                    .externalId("external_id")
+                    .metadata(
+                        LedgerAccountUpdateRequest.Metadata.builder()
+                            .putAdditionalProperty("foo", JsonValue.from("bar"))
+                            .putAdditionalProperty("key", JsonValue.from("value"))
+                            .putAdditionalProperty("modern", JsonValue.from("treasury"))
+                            .build()
+                    )
+                    .name("name")
                     .build()
             )
-        assertThat(body.name()).isEqualTo("name")
     }
 
     @Test

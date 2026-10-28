@@ -8,6 +8,7 @@ import com.moderntreasury.api.core.RequestOptions
 import com.moderntreasury.api.core.http.HttpResponseFor
 import com.moderntreasury.api.models.ExpectedPayment
 import com.moderntreasury.api.models.ExpectedPaymentCreateParams
+import com.moderntreasury.api.models.ExpectedPaymentCreateRequest
 import com.moderntreasury.api.models.ExpectedPaymentDeleteParams
 import com.moderntreasury.api.models.ExpectedPaymentListPageAsync
 import com.moderntreasury.api.models.ExpectedPaymentListParams
@@ -33,6 +34,18 @@ interface ExpectedPaymentServiceAsync {
         params: ExpectedPaymentCreateParams = ExpectedPaymentCreateParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): ExpectedPayment
+
+    /** @see create */
+    suspend fun create(
+        expectedPaymentCreateRequest: ExpectedPaymentCreateRequest,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): ExpectedPayment =
+        create(
+            ExpectedPaymentCreateParams.builder()
+                .expectedPaymentCreateRequest(expectedPaymentCreateRequest)
+                .build(),
+            requestOptions,
+        )
 
     /** @see create */
     suspend fun create(requestOptions: RequestOptions): ExpectedPayment =
@@ -123,6 +136,19 @@ interface ExpectedPaymentServiceAsync {
             params: ExpectedPaymentCreateParams = ExpectedPaymentCreateParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<ExpectedPayment>
+
+        /** @see create */
+        @MustBeClosed
+        suspend fun create(
+            expectedPaymentCreateRequest: ExpectedPaymentCreateRequest,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<ExpectedPayment> =
+            create(
+                ExpectedPaymentCreateParams.builder()
+                    .expectedPaymentCreateRequest(expectedPaymentCreateRequest)
+                    .build(),
+                requestOptions,
+            )
 
         /** @see create */
         @MustBeClosed
