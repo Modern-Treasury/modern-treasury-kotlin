@@ -118,6 +118,7 @@ internal class InternalAccountServiceTest {
             internalAccountService.update(
                 InternalAccountUpdateParams.builder()
                     .id("id")
+                    .addAllowedAchDebitCompanyId("x")
                     .contraLedgerAccountId("contra_ledger_account_id")
                     .counterpartyId("counterparty_id")
                     .externalId("external_id")
