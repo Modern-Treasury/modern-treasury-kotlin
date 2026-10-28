@@ -2134,6 +2134,8 @@ private constructor(
 
             val GENERAL_LEDGER = of("general_ledger")
 
+            val HOSTED_WALLET = of("hosted_wallet")
+
             val LOAN = of("loan")
 
             val NON_RESIDENT = of("non_resident")
@@ -2144,6 +2146,8 @@ private constructor(
 
             val SAVINGS = of("savings")
 
+            val SELF_HOSTED_WALLET = of("self_hosted_wallet")
+
             fun of(value: String) = AccountType(JsonField.of(value))
         }
 
@@ -2152,11 +2156,13 @@ private constructor(
             CASH,
             CHECKING,
             GENERAL_LEDGER,
+            HOSTED_WALLET,
             LOAN,
             NON_RESIDENT,
             OTHER,
             OVERDRAFT,
             SAVINGS,
+            SELF_HOSTED_WALLET,
         }
 
         /**
@@ -2172,11 +2178,13 @@ private constructor(
             CASH,
             CHECKING,
             GENERAL_LEDGER,
+            HOSTED_WALLET,
             LOAN,
             NON_RESIDENT,
             OTHER,
             OVERDRAFT,
             SAVINGS,
+            SELF_HOSTED_WALLET,
             /**
              * An enum member indicating that [AccountType] was instantiated with an unknown value.
              */
@@ -2195,11 +2203,13 @@ private constructor(
                 CASH -> Value.CASH
                 CHECKING -> Value.CHECKING
                 GENERAL_LEDGER -> Value.GENERAL_LEDGER
+                HOSTED_WALLET -> Value.HOSTED_WALLET
                 LOAN -> Value.LOAN
                 NON_RESIDENT -> Value.NON_RESIDENT
                 OTHER -> Value.OTHER
                 OVERDRAFT -> Value.OVERDRAFT
                 SAVINGS -> Value.SAVINGS
+                SELF_HOSTED_WALLET -> Value.SELF_HOSTED_WALLET
                 else -> Value._UNKNOWN
             }
 
@@ -2217,11 +2227,13 @@ private constructor(
                 CASH -> Known.CASH
                 CHECKING -> Known.CHECKING
                 GENERAL_LEDGER -> Known.GENERAL_LEDGER
+                HOSTED_WALLET -> Known.HOSTED_WALLET
                 LOAN -> Known.LOAN
                 NON_RESIDENT -> Known.NON_RESIDENT
                 OTHER -> Known.OTHER
                 OVERDRAFT -> Known.OVERDRAFT
                 SAVINGS -> Known.SAVINGS
+                SELF_HOSTED_WALLET -> Known.SELF_HOSTED_WALLET
                 else -> throw ModernTreasuryInvalidDataException("Unknown AccountType: $value")
             }
 
