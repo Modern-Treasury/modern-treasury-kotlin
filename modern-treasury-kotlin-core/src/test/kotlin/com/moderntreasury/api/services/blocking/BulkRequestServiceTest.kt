@@ -69,6 +69,7 @@ internal class BulkRequestServiceTest {
                             .currency(Currency.AED)
                             .description("description")
                             .effectiveDate(LocalDate.parse("2019-12-27"))
+                            .endToEndId("end_to_end_id")
                             .expiresAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                             .externalId("external_id")
                             .fallbackType(

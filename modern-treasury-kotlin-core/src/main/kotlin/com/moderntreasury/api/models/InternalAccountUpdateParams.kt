@@ -391,7 +391,7 @@ private constructor(
          * not guarantee that the new address matches the address on record with the account's bank;
          * you are responsible for verifying that the address is accurate.
          */
-        fun partyAddress(partyAddress: AddressRequest) = apply { body.partyAddress(partyAddress) }
+        fun partyAddress(partyAddress: AddressRequest?) = apply { body.partyAddress(partyAddress) }
 
         /**
          * Sets [Builder.partyAddress] to an arbitrary JSON value.
@@ -1028,8 +1028,8 @@ private constructor(
              * does not guarantee that the new address matches the address on record with the
              * account's bank; you are responsible for verifying that the address is accurate.
              */
-            fun partyAddress(partyAddress: AddressRequest) =
-                partyAddress(JsonField.of(partyAddress))
+            fun partyAddress(partyAddress: AddressRequest?) =
+                partyAddress(JsonField.ofNullable(partyAddress))
 
             /**
              * Sets [Builder.partyAddress] to an arbitrary JSON value.
