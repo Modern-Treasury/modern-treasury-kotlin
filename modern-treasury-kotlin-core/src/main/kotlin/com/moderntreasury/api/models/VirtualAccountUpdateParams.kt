@@ -56,8 +56,8 @@ private constructor(
     fun name(): String? = body.name()
 
     /**
-     * The address of the owner of the virtual account. Omit to leave it unchanged; pass all fields
-     * blank to clear it, after which the internal account's party address is used.
+     * The address of the owner of the virtual account. Omit to leave it unchanged; pass `null` to
+     * clear it, after which the internal account's party address is used.
      *
      * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
      *   the server responded with an unexpected value).
@@ -202,10 +202,10 @@ private constructor(
         fun name(name: JsonField<String>) = apply { body.name(name) }
 
         /**
-         * The address of the owner of the virtual account. Omit to leave it unchanged; pass all
-         * fields blank to clear it, after which the internal account's party address is used.
+         * The address of the owner of the virtual account. Omit to leave it unchanged; pass `null`
+         * to clear it, after which the internal account's party address is used.
          */
-        fun partyAddress(partyAddress: AddressRequest) = apply { body.partyAddress(partyAddress) }
+        fun partyAddress(partyAddress: AddressRequest?) = apply { body.partyAddress(partyAddress) }
 
         /**
          * Sets [Builder.partyAddress] to an arbitrary JSON value.
@@ -416,8 +416,8 @@ private constructor(
         fun name(): String? = name.getNullable("name")
 
         /**
-         * The address of the owner of the virtual account. Omit to leave it unchanged; pass all
-         * fields blank to clear it, after which the internal account's party address is used.
+         * The address of the owner of the virtual account. Omit to leave it unchanged; pass `null`
+         * to clear it, after which the internal account's party address is used.
          *
          * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
          *   if the server responded with an unexpected value).
@@ -561,11 +561,11 @@ private constructor(
             fun name(name: JsonField<String>) = apply { this.name = name }
 
             /**
-             * The address of the owner of the virtual account. Omit to leave it unchanged; pass all
-             * fields blank to clear it, after which the internal account's party address is used.
+             * The address of the owner of the virtual account. Omit to leave it unchanged; pass
+             * `null` to clear it, after which the internal account's party address is used.
              */
-            fun partyAddress(partyAddress: AddressRequest) =
-                partyAddress(JsonField.of(partyAddress))
+            fun partyAddress(partyAddress: AddressRequest?) =
+                partyAddress(JsonField.ofNullable(partyAddress))
 
             /**
              * Sets [Builder.partyAddress] to an arbitrary JSON value.
