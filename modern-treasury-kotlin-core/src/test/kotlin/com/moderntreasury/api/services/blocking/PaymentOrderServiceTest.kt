@@ -57,12 +57,13 @@ internal class PaymentOrderServiceTest {
                     .currency(Currency.AED)
                     .description("description")
                     .addDocument(
-                        PaymentOrderCreateParams.DocumentCreateRequest.builder()
+                        PaymentOrderCreateParams.PaymentOrderDocumentCreateRequest.builder()
                             .file("Example data".byteInputStream())
                             .documentType("document_type")
                             .documentableId("documentable_id")
                             .documentableType(
-                                PaymentOrderCreateParams.DocumentCreateRequest.DocumentableType
+                                PaymentOrderCreateParams.PaymentOrderDocumentCreateRequest
+                                    .DocumentableType
                                     .CONNECTION
                             )
                             .build()
