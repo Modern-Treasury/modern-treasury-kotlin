@@ -8,6 +8,7 @@ import com.moderntreasury.api.core.RequestOptions
 import com.moderntreasury.api.core.http.HttpResponseFor
 import com.moderntreasury.api.models.PaymentFlow
 import com.moderntreasury.api.models.PaymentFlowCreateParams
+import com.moderntreasury.api.models.PaymentFlowCreateRequest
 import com.moderntreasury.api.models.PaymentFlowListPageAsync
 import com.moderntreasury.api.models.PaymentFlowListParams
 import com.moderntreasury.api.models.PaymentFlowRetrieveParams
@@ -33,6 +34,19 @@ interface PaymentFlowServiceAsync {
         params: PaymentFlowCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): PaymentFlow
+
+    /** @see create */
+    @Deprecated("deprecated")
+    suspend fun create(
+        paymentFlowCreateRequest: PaymentFlowCreateRequest,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): PaymentFlow =
+        create(
+            PaymentFlowCreateParams.builder()
+                .paymentFlowCreateRequest(paymentFlowCreateRequest)
+                .build(),
+            requestOptions,
+        )
 
     /** get payment_flow */
     suspend fun retrieve(
@@ -99,6 +113,20 @@ interface PaymentFlowServiceAsync {
             params: PaymentFlowCreateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<PaymentFlow>
+
+        /** @see create */
+        @Deprecated("deprecated")
+        @MustBeClosed
+        suspend fun create(
+            paymentFlowCreateRequest: PaymentFlowCreateRequest,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<PaymentFlow> =
+            create(
+                PaymentFlowCreateParams.builder()
+                    .paymentFlowCreateRequest(paymentFlowCreateRequest)
+                    .build(),
+                requestOptions,
+            )
 
         /**
          * Returns a raw HTTP response for `get /api/payment_flows/{id}`, but is otherwise the same

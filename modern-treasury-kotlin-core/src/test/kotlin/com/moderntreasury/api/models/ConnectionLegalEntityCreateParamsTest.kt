@@ -247,7 +247,7 @@ internal class ConnectionLegalEntityCreateParamsTest {
                                     .prefix("prefix")
                                     .addPrimarySocialMediaSite("string")
                                     .addRegulator(
-                                        ChildLegalEntityCreate.LegalEntityRegulator.builder()
+                                        LegalEntityRegulator.builder()
                                             .jurisdiction("jurisdiction")
                                             .name("name")
                                             .registrationNumber("registration_number")
@@ -376,7 +376,7 @@ internal class ConnectionLegalEntityCreateParamsTest {
                     .prefix("prefix")
                     .addPrimarySocialMediaSite("string")
                     .addRegulator(
-                        ConnectionLegalEntityCreateParams.LegalEntity.LegalEntityRegulator.builder()
+                        LegalEntityRegulator.builder()
                             .jurisdiction("jurisdiction")
                             .name("name")
                             .registrationNumber("registration_number")
@@ -693,7 +693,7 @@ internal class ConnectionLegalEntityCreateParamsTest {
                                         .prefix("prefix")
                                         .addPrimarySocialMediaSite("string")
                                         .addRegulator(
-                                            ChildLegalEntityCreate.LegalEntityRegulator.builder()
+                                            LegalEntityRegulator.builder()
                                                 .jurisdiction("jurisdiction")
                                                 .name("name")
                                                 .registrationNumber("registration_number")
@@ -823,8 +823,7 @@ internal class ConnectionLegalEntityCreateParamsTest {
                         .prefix("prefix")
                         .addPrimarySocialMediaSite("string")
                         .addRegulator(
-                            ConnectionLegalEntityCreateParams.LegalEntity.LegalEntityRegulator
-                                .builder()
+                            LegalEntityRegulator.builder()
                                 .jurisdiction("jurisdiction")
                                 .name("name")
                                 .registrationNumber("registration_number")
@@ -1135,7 +1134,7 @@ internal class ConnectionLegalEntityCreateParamsTest {
                                     .prefix("prefix")
                                     .addPrimarySocialMediaSite("string")
                                     .addRegulator(
-                                        ChildLegalEntityCreate.LegalEntityRegulator.builder()
+                                        LegalEntityRegulator.builder()
                                             .jurisdiction("jurisdiction")
                                             .name("name")
                                             .registrationNumber("registration_number")
@@ -1264,7 +1263,7 @@ internal class ConnectionLegalEntityCreateParamsTest {
                     .prefix("prefix")
                     .addPrimarySocialMediaSite("string")
                     .addRegulator(
-                        ConnectionLegalEntityCreateParams.LegalEntity.LegalEntityRegulator.builder()
+                        LegalEntityRegulator.builder()
                             .jurisdiction("jurisdiction")
                             .name("name")
                             .registrationNumber("registration_number")

@@ -19,14 +19,13 @@ internal class CaseTest {
                 .liveMode(true)
                 .object_("object")
                 .addRequestedAction(
-                    Case.RequestedAction.builder()
+                    RequestedAction.builder()
                         .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                         .category(
-                            Case.RequestedAction.Category
-                                .ONBOARDING_ARTICLES_OF_INCORPORATION_FAILURE
+                            RequestedAction.Category.ONBOARDING_ARTICLES_OF_INCORPORATION_FAILURE
                         )
                         .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                        .field(Case.RequestedAction.Field.ARTICLES_OF_INCORPORATION)
+                        .field(RequestedAction.Field.ARTICLES_OF_INCORPORATION)
                         .instructions("instructions")
                         .liveMode(true)
                         .object_("object")
@@ -35,14 +34,13 @@ internal class CaseTest {
                         .build()
                 )
                 .addResolvedAction(
-                    Case.RequestedAction.builder()
+                    RequestedAction.builder()
                         .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                         .category(
-                            Case.RequestedAction.Category
-                                .ONBOARDING_ARTICLES_OF_INCORPORATION_FAILURE
+                            RequestedAction.Category.ONBOARDING_ARTICLES_OF_INCORPORATION_FAILURE
                         )
                         .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                        .field(Case.RequestedAction.Field.ARTICLES_OF_INCORPORATION)
+                        .field(RequestedAction.Field.ARTICLES_OF_INCORPORATION)
                         .instructions("instructions")
                         .liveMode(true)
                         .object_("object")
@@ -62,13 +60,11 @@ internal class CaseTest {
         assertThat(case.object_()).isEqualTo("object")
         assertThat(case.requestedActions())
             .containsExactly(
-                Case.RequestedAction.builder()
+                RequestedAction.builder()
                     .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                    .category(
-                        Case.RequestedAction.Category.ONBOARDING_ARTICLES_OF_INCORPORATION_FAILURE
-                    )
+                    .category(RequestedAction.Category.ONBOARDING_ARTICLES_OF_INCORPORATION_FAILURE)
                     .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                    .field(Case.RequestedAction.Field.ARTICLES_OF_INCORPORATION)
+                    .field(RequestedAction.Field.ARTICLES_OF_INCORPORATION)
                     .instructions("instructions")
                     .liveMode(true)
                     .object_("object")
@@ -78,13 +74,11 @@ internal class CaseTest {
             )
         assertThat(case.resolvedActions())
             .containsExactly(
-                Case.RequestedAction.builder()
+                RequestedAction.builder()
                     .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                    .category(
-                        Case.RequestedAction.Category.ONBOARDING_ARTICLES_OF_INCORPORATION_FAILURE
-                    )
+                    .category(RequestedAction.Category.ONBOARDING_ARTICLES_OF_INCORPORATION_FAILURE)
                     .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                    .field(Case.RequestedAction.Field.ARTICLES_OF_INCORPORATION)
+                    .field(RequestedAction.Field.ARTICLES_OF_INCORPORATION)
                     .instructions("instructions")
                     .liveMode(true)
                     .object_("object")
@@ -108,14 +102,13 @@ internal class CaseTest {
                 .liveMode(true)
                 .object_("object")
                 .addRequestedAction(
-                    Case.RequestedAction.builder()
+                    RequestedAction.builder()
                         .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                         .category(
-                            Case.RequestedAction.Category
-                                .ONBOARDING_ARTICLES_OF_INCORPORATION_FAILURE
+                            RequestedAction.Category.ONBOARDING_ARTICLES_OF_INCORPORATION_FAILURE
                         )
                         .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                        .field(Case.RequestedAction.Field.ARTICLES_OF_INCORPORATION)
+                        .field(RequestedAction.Field.ARTICLES_OF_INCORPORATION)
                         .instructions("instructions")
                         .liveMode(true)
                         .object_("object")
@@ -124,14 +117,13 @@ internal class CaseTest {
                         .build()
                 )
                 .addResolvedAction(
-                    Case.RequestedAction.builder()
+                    RequestedAction.builder()
                         .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                         .category(
-                            Case.RequestedAction.Category
-                                .ONBOARDING_ARTICLES_OF_INCORPORATION_FAILURE
+                            RequestedAction.Category.ONBOARDING_ARTICLES_OF_INCORPORATION_FAILURE
                         )
                         .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                        .field(Case.RequestedAction.Field.ARTICLES_OF_INCORPORATION)
+                        .field(RequestedAction.Field.ARTICLES_OF_INCORPORATION)
                         .instructions("instructions")
                         .liveMode(true)
                         .object_("object")

@@ -12,9 +12,13 @@ internal class TransactionUpdateParamsTest {
     fun create() {
         TransactionUpdateParams.builder()
             .id("id")
-            .metadata(
-                TransactionUpdateParams.Metadata.builder()
-                    .putAdditionalProperty("foo", JsonValue.from("string"))
+            .transactionUpdateRequest(
+                TransactionUpdateRequest.builder()
+                    .metadata(
+                        TransactionUpdateRequest.Metadata.builder()
+                            .putAdditionalProperty("foo", JsonValue.from("string"))
+                            .build()
+                    )
                     .build()
             )
             .build()
@@ -34,19 +38,27 @@ internal class TransactionUpdateParamsTest {
         val params =
             TransactionUpdateParams.builder()
                 .id("id")
-                .metadata(
-                    TransactionUpdateParams.Metadata.builder()
-                        .putAdditionalProperty("foo", JsonValue.from("string"))
+                .transactionUpdateRequest(
+                    TransactionUpdateRequest.builder()
+                        .metadata(
+                            TransactionUpdateRequest.Metadata.builder()
+                                .putAdditionalProperty("foo", JsonValue.from("string"))
+                                .build()
+                        )
                         .build()
                 )
                 .build()
 
         val body = params._body()
 
-        assertThat(body.metadata())
+        assertThat(body)
             .isEqualTo(
-                TransactionUpdateParams.Metadata.builder()
-                    .putAdditionalProperty("foo", JsonValue.from("string"))
+                TransactionUpdateRequest.builder()
+                    .metadata(
+                        TransactionUpdateRequest.Metadata.builder()
+                            .putAdditionalProperty("foo", JsonValue.from("string"))
+                            .build()
+                    )
                     .build()
             )
     }

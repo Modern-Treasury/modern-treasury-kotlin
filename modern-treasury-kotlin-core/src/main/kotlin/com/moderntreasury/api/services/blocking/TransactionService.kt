@@ -9,6 +9,7 @@ import com.moderntreasury.api.core.http.HttpResponse
 import com.moderntreasury.api.core.http.HttpResponseFor
 import com.moderntreasury.api.models.Transaction
 import com.moderntreasury.api.models.TransactionCreateParams
+import com.moderntreasury.api.models.TransactionCreateRequest
 import com.moderntreasury.api.models.TransactionDeleteParams
 import com.moderntreasury.api.models.TransactionListPage
 import com.moderntreasury.api.models.TransactionListParams
@@ -37,6 +38,18 @@ interface TransactionService {
         params: TransactionCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): Transaction
+
+    /** @see create */
+    fun create(
+        transactionCreateRequest: TransactionCreateRequest,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): Transaction =
+        create(
+            TransactionCreateParams.builder()
+                .transactionCreateRequest(transactionCreateRequest)
+                .build(),
+            requestOptions,
+        )
 
     /** Get details on a single transaction. */
     fun retrieve(
@@ -124,6 +137,19 @@ interface TransactionService {
             params: TransactionCreateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<Transaction>
+
+        /** @see create */
+        @MustBeClosed
+        fun create(
+            transactionCreateRequest: TransactionCreateRequest,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<Transaction> =
+            create(
+                TransactionCreateParams.builder()
+                    .transactionCreateRequest(transactionCreateRequest)
+                    .build(),
+                requestOptions,
+            )
 
         /**
          * Returns a raw HTTP response for `get /api/transactions/{id}`, but is otherwise the same

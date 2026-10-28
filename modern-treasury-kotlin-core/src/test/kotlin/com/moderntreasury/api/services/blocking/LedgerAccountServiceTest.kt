@@ -8,6 +8,7 @@ import com.moderntreasury.api.core.JsonValue
 import com.moderntreasury.api.models.LedgerAccountCreateRequest
 import com.moderntreasury.api.models.LedgerAccountRetrieveParams
 import com.moderntreasury.api.models.LedgerAccountUpdateParams
+import com.moderntreasury.api.models.LedgerAccountUpdateRequest
 import com.moderntreasury.api.models.TransactionDirection
 import java.time.LocalDate
 import java.time.OffsetDateTime
@@ -96,16 +97,20 @@ internal class LedgerAccountServiceTest {
             ledgerAccountService.update(
                 LedgerAccountUpdateParams.builder()
                     .id("id")
-                    .description("description")
-                    .externalId("external_id")
-                    .metadata(
-                        LedgerAccountUpdateParams.Metadata.builder()
-                            .putAdditionalProperty("foo", JsonValue.from("bar"))
-                            .putAdditionalProperty("key", JsonValue.from("value"))
-                            .putAdditionalProperty("modern", JsonValue.from("treasury"))
+                    .ledgerAccountUpdateRequest(
+                        LedgerAccountUpdateRequest.builder()
+                            .description("description")
+                            .externalId("external_id")
+                            .metadata(
+                                LedgerAccountUpdateRequest.Metadata.builder()
+                                    .putAdditionalProperty("foo", JsonValue.from("bar"))
+                                    .putAdditionalProperty("key", JsonValue.from("value"))
+                                    .putAdditionalProperty("modern", JsonValue.from("treasury"))
+                                    .build()
+                            )
+                            .name("name")
                             .build()
                     )
-                    .name("name")
                     .build()
             )
 

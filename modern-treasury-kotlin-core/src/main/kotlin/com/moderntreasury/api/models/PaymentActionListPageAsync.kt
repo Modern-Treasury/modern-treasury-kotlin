@@ -15,8 +15,8 @@ private constructor(
     private val service: PaymentActionServiceAsync,
     private val params: PaymentActionListParams,
     private val headers: Headers,
-    private val items: List<PaymentActionListResponse>,
-) : PageAsync<PaymentActionListResponse> {
+    private val items: List<PaymentAction>,
+) : PageAsync<PaymentAction> {
 
     fun perPage(): String? = headers.values("X-Per-Page").firstOrNull()
 
@@ -32,13 +32,13 @@ private constructor(
 
     override suspend fun nextPage(): PaymentActionListPageAsync = service.list(nextPageParams())
 
-    fun autoPager(): AutoPagerAsync<PaymentActionListResponse> = AutoPagerAsync.from(this)
+    fun autoPager(): AutoPagerAsync<PaymentAction> = AutoPagerAsync.from(this)
 
     /** The parameters that were used to request this page. */
     fun params(): PaymentActionListParams = params
 
     /** The response that this page was parsed from. */
-    override fun items(): List<PaymentActionListResponse> = items
+    override fun items(): List<PaymentAction> = items
 
     fun toBuilder() = Builder().from(this)
 
@@ -64,7 +64,7 @@ private constructor(
         private var service: PaymentActionServiceAsync? = null
         private var params: PaymentActionListParams? = null
         private var headers: Headers? = null
-        private var items: List<PaymentActionListResponse>? = null
+        private var items: List<PaymentAction>? = null
 
         internal fun from(paymentActionListPageAsync: PaymentActionListPageAsync) = apply {
             service = paymentActionListPageAsync.service
@@ -81,7 +81,7 @@ private constructor(
         fun headers(headers: Headers) = apply { this.headers = headers }
 
         /** The response that this page was parsed from. */
-        fun items(items: List<PaymentActionListResponse>) = apply { this.items = items }
+        fun items(items: List<PaymentAction>) = apply { this.items = items }
 
         /**
          * Returns an immutable instance of [PaymentActionListPageAsync].

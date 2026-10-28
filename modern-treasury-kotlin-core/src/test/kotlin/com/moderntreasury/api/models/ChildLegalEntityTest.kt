@@ -315,7 +315,7 @@ internal class ChildLegalEntityTest {
                                 .prefix("prefix")
                                 .addPrimarySocialMediaSite("string")
                                 .addRegulator(
-                                    ChildLegalEntity.LegalEntityRegulator.builder()
+                                    LegalEntityRegulator.builder()
                                         .jurisdiction("jurisdiction")
                                         .name("name")
                                         .registrationNumber("registration_number")
@@ -440,7 +440,7 @@ internal class ChildLegalEntityTest {
                 .prefix("prefix")
                 .addPrimarySocialMediaSite("string")
                 .addRegulator(
-                    ChildLegalEntity.LegalEntityRegulator.builder()
+                    LegalEntityRegulator.builder()
                         .jurisdiction("jurisdiction")
                         .name("name")
                         .registrationNumber("registration_number")
@@ -798,7 +798,7 @@ internal class ChildLegalEntityTest {
                             .prefix("prefix")
                             .addPrimarySocialMediaSite("string")
                             .addRegulator(
-                                ChildLegalEntity.LegalEntityRegulator.builder()
+                                LegalEntityRegulator.builder()
                                     .jurisdiction("jurisdiction")
                                     .name("name")
                                     .registrationNumber("registration_number")
@@ -915,7 +915,7 @@ internal class ChildLegalEntityTest {
         assertThat(childLegalEntity.primarySocialMediaSites()).containsExactly("string")
         assertThat(childLegalEntity.regulators())
             .containsExactly(
-                ChildLegalEntity.LegalEntityRegulator.builder()
+                LegalEntityRegulator.builder()
                     .jurisdiction("jurisdiction")
                     .name("name")
                     .registrationNumber("registration_number")
@@ -1290,7 +1290,7 @@ internal class ChildLegalEntityTest {
                                 .prefix("prefix")
                                 .addPrimarySocialMediaSite("string")
                                 .addRegulator(
-                                    ChildLegalEntity.LegalEntityRegulator.builder()
+                                    LegalEntityRegulator.builder()
                                         .jurisdiction("jurisdiction")
                                         .name("name")
                                         .registrationNumber("registration_number")
@@ -1415,7 +1415,7 @@ internal class ChildLegalEntityTest {
                 .prefix("prefix")
                 .addPrimarySocialMediaSite("string")
                 .addRegulator(
-                    ChildLegalEntity.LegalEntityRegulator.builder()
+                    LegalEntityRegulator.builder()
                         .jurisdiction("jurisdiction")
                         .name("name")
                         .registrationNumber("registration_number")

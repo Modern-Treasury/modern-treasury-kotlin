@@ -8,6 +8,7 @@ import com.moderntreasury.api.core.RequestOptions
 import com.moderntreasury.api.core.http.HttpResponseFor
 import com.moderntreasury.api.models.AccountCollectionFlow
 import com.moderntreasury.api.models.AccountCollectionFlowCreateParams
+import com.moderntreasury.api.models.AccountCollectionFlowCreateRequest
 import com.moderntreasury.api.models.AccountCollectionFlowListPage
 import com.moderntreasury.api.models.AccountCollectionFlowListParams
 import com.moderntreasury.api.models.AccountCollectionFlowRetrieveParams
@@ -33,6 +34,19 @@ interface AccountCollectionFlowService {
         params: AccountCollectionFlowCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): AccountCollectionFlow
+
+    /** @see create */
+    @Deprecated("deprecated")
+    fun create(
+        accountCollectionFlowCreateRequest: AccountCollectionFlowCreateRequest,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): AccountCollectionFlow =
+        create(
+            AccountCollectionFlowCreateParams.builder()
+                .accountCollectionFlowCreateRequest(accountCollectionFlowCreateRequest)
+                .build(),
+            requestOptions,
+        )
 
     /** get account_collection_flow */
     fun retrieve(
@@ -99,6 +113,20 @@ interface AccountCollectionFlowService {
             params: AccountCollectionFlowCreateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<AccountCollectionFlow>
+
+        /** @see create */
+        @Deprecated("deprecated")
+        @MustBeClosed
+        fun create(
+            accountCollectionFlowCreateRequest: AccountCollectionFlowCreateRequest,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<AccountCollectionFlow> =
+            create(
+                AccountCollectionFlowCreateParams.builder()
+                    .accountCollectionFlowCreateRequest(accountCollectionFlowCreateRequest)
+                    .build(),
+                requestOptions,
+            )
 
         /**
          * Returns a raw HTTP response for `get /api/account_collection_flows/{id}`, but is
