@@ -755,8 +755,6 @@ private constructor(
 
             val WALLET_ADDRESS = of("walletAddress")
 
-            val PAN_NUMBER = of("panNumber")
-
             val ROUTING_NUMBER = of("routingNumber")
 
             val ABA_WIRE_ROUTING_NUMBER = of("abaWireRoutingNumber")
@@ -806,7 +804,6 @@ private constructor(
             IBAN_NUMBER,
             CLABE_NUMBER,
             WALLET_ADDRESS,
-            PAN_NUMBER,
             ROUTING_NUMBER,
             ABA_WIRE_ROUTING_NUMBER,
             SWIFT_CODE,
@@ -845,7 +842,6 @@ private constructor(
             IBAN_NUMBER,
             CLABE_NUMBER,
             WALLET_ADDRESS,
-            PAN_NUMBER,
             ROUTING_NUMBER,
             ABA_WIRE_ROUTING_NUMBER,
             SWIFT_CODE,
@@ -885,7 +881,6 @@ private constructor(
                 IBAN_NUMBER -> Value.IBAN_NUMBER
                 CLABE_NUMBER -> Value.CLABE_NUMBER
                 WALLET_ADDRESS -> Value.WALLET_ADDRESS
-                PAN_NUMBER -> Value.PAN_NUMBER
                 ROUTING_NUMBER -> Value.ROUTING_NUMBER
                 ABA_WIRE_ROUTING_NUMBER -> Value.ABA_WIRE_ROUTING_NUMBER
                 SWIFT_CODE -> Value.SWIFT_CODE
@@ -926,7 +921,6 @@ private constructor(
                 IBAN_NUMBER -> Known.IBAN_NUMBER
                 CLABE_NUMBER -> Known.CLABE_NUMBER
                 WALLET_ADDRESS -> Known.WALLET_ADDRESS
-                PAN_NUMBER -> Known.PAN_NUMBER
                 ROUTING_NUMBER -> Known.ROUTING_NUMBER
                 ABA_WIRE_ROUTING_NUMBER -> Known.ABA_WIRE_ROUTING_NUMBER
                 SWIFT_CODE -> Known.SWIFT_CODE
