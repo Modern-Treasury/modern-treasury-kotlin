@@ -241,7 +241,7 @@ private constructor(
          */
         fun name(name: JsonField<String>) = apply { body.name(name) }
 
-        fun partyAddress(partyAddress: AddressRequest) = apply { body.partyAddress(partyAddress) }
+        fun partyAddress(partyAddress: AddressRequest?) = apply { body.partyAddress(partyAddress) }
 
         /**
          * Sets [Builder.partyAddress] to an arbitrary JSON value.
@@ -683,8 +683,8 @@ private constructor(
              */
             fun name(name: JsonField<String>) = apply { this.name = name }
 
-            fun partyAddress(partyAddress: AddressRequest) =
-                partyAddress(JsonField.of(partyAddress))
+            fun partyAddress(partyAddress: AddressRequest?) =
+                partyAddress(JsonField.ofNullable(partyAddress))
 
             /**
              * Sets [Builder.partyAddress] to an arbitrary JSON value.
