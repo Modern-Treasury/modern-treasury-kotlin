@@ -576,8 +576,6 @@ private constructor(
 
             val OTHER = of("other")
 
-            val PAN = of("pan")
-
             val POLYGON_ADDRESS = of("polygon_address")
 
             val SG_NUMBER = of("sg_number")
@@ -601,7 +599,6 @@ private constructor(
             ID_NUMBER,
             NZ_NUMBER,
             OTHER,
-            PAN,
             POLYGON_ADDRESS,
             SG_NUMBER,
             SOLANA_ADDRESS,
@@ -629,7 +626,6 @@ private constructor(
             ID_NUMBER,
             NZ_NUMBER,
             OTHER,
-            PAN,
             POLYGON_ADDRESS,
             SG_NUMBER,
             SOLANA_ADDRESS,
@@ -661,7 +657,6 @@ private constructor(
                 ID_NUMBER -> Value.ID_NUMBER
                 NZ_NUMBER -> Value.NZ_NUMBER
                 OTHER -> Value.OTHER
-                PAN -> Value.PAN
                 POLYGON_ADDRESS -> Value.POLYGON_ADDRESS
                 SG_NUMBER -> Value.SG_NUMBER
                 SOLANA_ADDRESS -> Value.SOLANA_ADDRESS
@@ -691,7 +686,6 @@ private constructor(
                 ID_NUMBER -> Known.ID_NUMBER
                 NZ_NUMBER -> Known.NZ_NUMBER
                 OTHER -> Known.OTHER
-                PAN -> Known.PAN
                 POLYGON_ADDRESS -> Known.POLYGON_ADDRESS
                 SG_NUMBER -> Known.SG_NUMBER
                 SOLANA_ADDRESS -> Known.SOLANA_ADDRESS
