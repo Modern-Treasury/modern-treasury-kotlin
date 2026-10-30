@@ -43,11 +43,6 @@ internal class CounterpartyServiceAsyncTest {
             counterpartyServiceAsync.create(
                 CounterpartyCreateParams.builder()
                     .name("name")
-                    .accounting(
-                        CounterpartyCreateParams.Accounting.builder()
-                            .type(CounterpartyCreateParams.Accounting.Type.CUSTOMER)
-                            .build()
-                    )
                     .addAccount(
                         CounterpartyCreateParams.Account.builder()
                             .addAccountDetail(
@@ -138,7 +133,6 @@ internal class CounterpartyServiceAsyncTest {
                     )
                     .email("dev@stainless.com")
                     .externalId("external_id")
-                    .ledgerType(CounterpartyCreateParams.LedgerType.CUSTOMER)
                     .legalEntity(
                         CounterpartyCreateParams.LegalEntityCreateRequest.builder()
                             .legalEntityType(
