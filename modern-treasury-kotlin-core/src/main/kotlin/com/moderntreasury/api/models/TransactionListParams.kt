@@ -22,7 +22,6 @@ private constructor(
     private val paymentType: String?,
     private val perPage: Long?,
     private val posted: Boolean?,
-    private val transactableType: String?,
     private val vendorId: String?,
     private val virtualAccountId: String?,
     private val additionalHeaders: Headers,
@@ -66,8 +65,6 @@ private constructor(
     /** Either `true` or `false`. */
     fun posted(): Boolean? = posted
 
-    fun transactableType(): String? = transactableType
-
     /**
      * Filters for transactions including the queried vendor id (an identifier given to transactions
      * by the bank).
@@ -106,7 +103,6 @@ private constructor(
         private var paymentType: String? = null
         private var perPage: Long? = null
         private var posted: Boolean? = null
-        private var transactableType: String? = null
         private var vendorId: String? = null
         private var virtualAccountId: String? = null
         private var additionalHeaders: Headers.Builder = Headers.builder()
@@ -124,7 +120,6 @@ private constructor(
             paymentType = transactionListParams.paymentType
             perPage = transactionListParams.perPage
             posted = transactionListParams.posted
-            transactableType = transactionListParams.transactableType
             vendorId = transactionListParams.vendorId
             virtualAccountId = transactionListParams.virtualAccountId
             additionalHeaders = transactionListParams.additionalHeaders.toBuilder()
@@ -185,10 +180,6 @@ private constructor(
          * This unboxed primitive overload exists for backwards compatibility.
          */
         fun posted(posted: Boolean) = posted(posted as Boolean?)
-
-        fun transactableType(transactableType: String?) = apply {
-            this.transactableType = transactableType
-        }
 
         /**
          * Filters for transactions including the queried vendor id (an identifier given to
@@ -316,7 +307,6 @@ private constructor(
                 paymentType,
                 perPage,
                 posted,
-                transactableType,
                 vendorId,
                 virtualAccountId,
                 additionalHeaders.build(),
@@ -346,7 +336,6 @@ private constructor(
                 paymentType?.let { put("payment_type", it) }
                 perPage?.let { put("per_page", it.toString()) }
                 posted?.let { put("posted", it.toString()) }
-                transactableType?.let { put("transactable_type", it) }
                 vendorId?.let { put("vendor_id", it) }
                 virtualAccountId?.let { put("virtual_account_id", it) }
                 putAll(additionalQueryParams)
@@ -468,7 +457,6 @@ private constructor(
             paymentType == other.paymentType &&
             perPage == other.perPage &&
             posted == other.posted &&
-            transactableType == other.transactableType &&
             vendorId == other.vendorId &&
             virtualAccountId == other.virtualAccountId &&
             additionalHeaders == other.additionalHeaders &&
@@ -488,7 +476,6 @@ private constructor(
             paymentType,
             perPage,
             posted,
-            transactableType,
             vendorId,
             virtualAccountId,
             additionalHeaders,
@@ -496,5 +483,5 @@ private constructor(
         )
 
     override fun toString() =
-        "TransactionListParams{afterCursor=$afterCursor, asOfDateEnd=$asOfDateEnd, asOfDateStart=$asOfDateStart, counterpartyId=$counterpartyId, description=$description, direction=$direction, internalAccountId=$internalAccountId, metadata=$metadata, paymentType=$paymentType, perPage=$perPage, posted=$posted, transactableType=$transactableType, vendorId=$vendorId, virtualAccountId=$virtualAccountId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
+        "TransactionListParams{afterCursor=$afterCursor, asOfDateEnd=$asOfDateEnd, asOfDateStart=$asOfDateStart, counterpartyId=$counterpartyId, description=$description, direction=$direction, internalAccountId=$internalAccountId, metadata=$metadata, paymentType=$paymentType, perPage=$perPage, posted=$posted, vendorId=$vendorId, virtualAccountId=$virtualAccountId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }
