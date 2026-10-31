@@ -40,12 +40,6 @@ private constructor(
     fun name(): String? = body.name()
 
     /**
-     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
-     *   the server responded with an unexpected value).
-     */
-    @Deprecated("deprecated") fun accounting(): Accounting? = body.accounting()
-
-    /**
      * The accounts for this counterparty.
      *
      * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
@@ -68,14 +62,6 @@ private constructor(
      *   the server responded with an unexpected value).
      */
     fun externalId(): String? = body.externalId()
-
-    /**
-     * An optional type to auto-sync the counterparty to your ledger. Either `customer` or `vendor`.
-     *
-     * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
-     *   the server responded with an unexpected value).
-     */
-    @Deprecated("deprecated") fun ledgerType(): LedgerType? = body.ledgerType()
 
     /**
      * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g. if
@@ -131,13 +117,6 @@ private constructor(
     fun _name(): JsonField<String> = body._name()
 
     /**
-     * Returns the raw JSON value of [accounting].
-     *
-     * Unlike [accounting], this method doesn't throw if the JSON field has an unexpected type.
-     */
-    @Deprecated("deprecated") fun _accounting(): JsonField<Accounting> = body._accounting()
-
-    /**
      * Returns the raw JSON value of [accounts].
      *
      * Unlike [accounts], this method doesn't throw if the JSON field has an unexpected type.
@@ -157,13 +136,6 @@ private constructor(
      * Unlike [externalId], this method doesn't throw if the JSON field has an unexpected type.
      */
     fun _externalId(): JsonField<String> = body._externalId()
-
-    /**
-     * Returns the raw JSON value of [ledgerType].
-     *
-     * Unlike [ledgerType], this method doesn't throw if the JSON field has an unexpected type.
-     */
-    @Deprecated("deprecated") fun _ledgerType(): JsonField<LedgerType> = body._ledgerType()
 
     /**
      * Returns the raw JSON value of [legalEntity].
@@ -253,10 +225,10 @@ private constructor(
          * This is generally only useful if you are already constructing the body separately.
          * Otherwise, it's more convenient to use the top-level setters instead:
          * - [name]
-         * - [accounting]
          * - [accounts]
          * - [email]
          * - [externalId]
+         * - [legalEntity]
          * - etc.
          */
         fun body(body: CounterpartyCreateRequest) = apply { this.body = body.toBuilder() }
@@ -271,19 +243,6 @@ private constructor(
          * method is primarily for setting the field to an undocumented or not yet supported value.
          */
         fun name(name: JsonField<String>) = apply { body.name(name) }
-
-        @Deprecated("deprecated")
-        fun accounting(accounting: Accounting) = apply { body.accounting(accounting) }
-
-        /**
-         * Sets [Builder.accounting] to an arbitrary JSON value.
-         *
-         * You should usually call [Builder.accounting] with a well-typed [Accounting] value
-         * instead. This method is primarily for setting the field to an undocumented or not yet
-         * supported value.
-         */
-        @Deprecated("deprecated")
-        fun accounting(accounting: JsonField<Accounting>) = apply { body.accounting(accounting) }
 
         /** The accounts for this counterparty. */
         fun accounts(accounts: List<Account>) = apply { body.accounts(accounts) }
@@ -326,23 +285,6 @@ private constructor(
          * value.
          */
         fun externalId(externalId: JsonField<String>) = apply { body.externalId(externalId) }
-
-        /**
-         * An optional type to auto-sync the counterparty to your ledger. Either `customer` or
-         * `vendor`.
-         */
-        @Deprecated("deprecated")
-        fun ledgerType(ledgerType: LedgerType) = apply { body.ledgerType(ledgerType) }
-
-        /**
-         * Sets [Builder.ledgerType] to an arbitrary JSON value.
-         *
-         * You should usually call [Builder.ledgerType] with a well-typed [LedgerType] value
-         * instead. This method is primarily for setting the field to an undocumented or not yet
-         * supported value.
-         */
-        @Deprecated("deprecated")
-        fun ledgerType(ledgerType: JsonField<LedgerType>) = apply { body.ledgerType(ledgerType) }
 
         fun legalEntity(legalEntity: LegalEntityCreateRequest) = apply {
             body.legalEntity(legalEntity)
@@ -587,11 +529,9 @@ private constructor(
     @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val name: JsonField<String>,
-        private val accounting: JsonField<Accounting>,
         private val accounts: JsonField<List<Account>>,
         private val email: JsonField<String>,
         private val externalId: JsonField<String>,
-        private val ledgerType: JsonField<LedgerType>,
         private val legalEntity: JsonField<LegalEntityCreateRequest>,
         private val legalEntityId: JsonField<String>,
         private val metadata: JsonField<Metadata>,
@@ -604,9 +544,6 @@ private constructor(
         @JsonCreator
         private constructor(
             @JsonProperty("name") @ExcludeMissing name: JsonField<String> = JsonMissing.of(),
-            @JsonProperty("accounting")
-            @ExcludeMissing
-            accounting: JsonField<Accounting> = JsonMissing.of(),
             @JsonProperty("accounts")
             @ExcludeMissing
             accounts: JsonField<List<Account>> = JsonMissing.of(),
@@ -614,9 +551,6 @@ private constructor(
             @JsonProperty("external_id")
             @ExcludeMissing
             externalId: JsonField<String> = JsonMissing.of(),
-            @JsonProperty("ledger_type")
-            @ExcludeMissing
-            ledgerType: JsonField<LedgerType> = JsonMissing.of(),
             @JsonProperty("legal_entity")
             @ExcludeMissing
             legalEntity: JsonField<LegalEntityCreateRequest> = JsonMissing.of(),
@@ -637,11 +571,9 @@ private constructor(
             verificationStatus: JsonField<String> = JsonMissing.of(),
         ) : this(
             name,
-            accounting,
             accounts,
             email,
             externalId,
-            ledgerType,
             legalEntity,
             legalEntityId,
             metadata,
@@ -658,13 +590,6 @@ private constructor(
          *   if the server responded with an unexpected value).
          */
         fun name(): String? = name.getNullable("name")
-
-        /**
-         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
-         *   if the server responded with an unexpected value).
-         */
-        @Deprecated("deprecated")
-        fun accounting(): Accounting? = accounting.getNullable("accounting")
 
         /**
          * The accounts for this counterparty.
@@ -689,16 +614,6 @@ private constructor(
          *   if the server responded with an unexpected value).
          */
         fun externalId(): String? = externalId.getNullable("external_id")
-
-        /**
-         * An optional type to auto-sync the counterparty to your ledger. Either `customer` or
-         * `vendor`.
-         *
-         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
-         *   if the server responded with an unexpected value).
-         */
-        @Deprecated("deprecated")
-        fun ledgerType(): LedgerType? = ledgerType.getNullable("ledger_type")
 
         /**
          * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
@@ -757,16 +672,6 @@ private constructor(
         @JsonProperty("name") @ExcludeMissing fun _name(): JsonField<String> = name
 
         /**
-         * Returns the raw JSON value of [accounting].
-         *
-         * Unlike [accounting], this method doesn't throw if the JSON field has an unexpected type.
-         */
-        @Deprecated("deprecated")
-        @JsonProperty("accounting")
-        @ExcludeMissing
-        fun _accounting(): JsonField<Accounting> = accounting
-
-        /**
          * Returns the raw JSON value of [accounts].
          *
          * Unlike [accounts], this method doesn't throw if the JSON field has an unexpected type.
@@ -790,16 +695,6 @@ private constructor(
         @JsonProperty("external_id")
         @ExcludeMissing
         fun _externalId(): JsonField<String> = externalId
-
-        /**
-         * Returns the raw JSON value of [ledgerType].
-         *
-         * Unlike [ledgerType], this method doesn't throw if the JSON field has an unexpected type.
-         */
-        @Deprecated("deprecated")
-        @JsonProperty("ledger_type")
-        @ExcludeMissing
-        fun _ledgerType(): JsonField<LedgerType> = ledgerType
 
         /**
          * Returns the raw JSON value of [legalEntity].
@@ -888,11 +783,9 @@ private constructor(
         class Builder internal constructor() {
 
             private var name: JsonField<String>? = null
-            private var accounting: JsonField<Accounting> = JsonMissing.of()
             private var accounts: JsonField<MutableList<Account>>? = null
             private var email: JsonField<String> = JsonMissing.of()
             private var externalId: JsonField<String> = JsonMissing.of()
-            private var ledgerType: JsonField<LedgerType> = JsonMissing.of()
             private var legalEntity: JsonField<LegalEntityCreateRequest> = JsonMissing.of()
             private var legalEntityId: JsonField<String> = JsonMissing.of()
             private var metadata: JsonField<Metadata> = JsonMissing.of()
@@ -903,11 +796,9 @@ private constructor(
 
             internal fun from(counterpartyCreateRequest: CounterpartyCreateRequest) = apply {
                 name = counterpartyCreateRequest.name
-                accounting = counterpartyCreateRequest.accounting
                 accounts = counterpartyCreateRequest.accounts.map { it.toMutableList() }
                 email = counterpartyCreateRequest.email
                 externalId = counterpartyCreateRequest.externalId
-                ledgerType = counterpartyCreateRequest.ledgerType
                 legalEntity = counterpartyCreateRequest.legalEntity
                 legalEntityId = counterpartyCreateRequest.legalEntityId
                 metadata = counterpartyCreateRequest.metadata
@@ -928,21 +819,6 @@ private constructor(
              * value.
              */
             fun name(name: JsonField<String>) = apply { this.name = name }
-
-            @Deprecated("deprecated")
-            fun accounting(accounting: Accounting) = accounting(JsonField.of(accounting))
-
-            /**
-             * Sets [Builder.accounting] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.accounting] with a well-typed [Accounting] value
-             * instead. This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
-             */
-            @Deprecated("deprecated")
-            fun accounting(accounting: JsonField<Accounting>) = apply {
-                this.accounting = accounting
-            }
 
             /** The accounts for this counterparty. */
             fun accounts(accounts: List<Account>) = accounts(JsonField.of(accounts))
@@ -993,25 +869,6 @@ private constructor(
              * supported value.
              */
             fun externalId(externalId: JsonField<String>) = apply { this.externalId = externalId }
-
-            /**
-             * An optional type to auto-sync the counterparty to your ledger. Either `customer` or
-             * `vendor`.
-             */
-            @Deprecated("deprecated")
-            fun ledgerType(ledgerType: LedgerType) = ledgerType(JsonField.of(ledgerType))
-
-            /**
-             * Sets [Builder.ledgerType] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.ledgerType] with a well-typed [LedgerType] value
-             * instead. This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
-             */
-            @Deprecated("deprecated")
-            fun ledgerType(ledgerType: JsonField<LedgerType>) = apply {
-                this.ledgerType = ledgerType
-            }
 
             fun legalEntity(legalEntity: LegalEntityCreateRequest) =
                 legalEntity(JsonField.of(legalEntity))
@@ -1141,11 +998,9 @@ private constructor(
             fun build(): CounterpartyCreateRequest =
                 CounterpartyCreateRequest(
                     checkRequired("name", name),
-                    accounting,
                     (accounts ?: JsonMissing.of()).map { it.toImmutable() },
                     email,
                     externalId,
-                    ledgerType,
                     legalEntity,
                     legalEntityId,
                     metadata,
@@ -1173,11 +1028,9 @@ private constructor(
             }
 
             name()
-            accounting()?.validate()
             accounts()?.forEach { it.validate() }
             email()
             externalId()
-            ledgerType()?.validate()
             legalEntity()?.validate()
             legalEntityId()
             metadata()?.validate()
@@ -1203,11 +1056,9 @@ private constructor(
          */
         internal fun validity(): Int =
             (if (name.asKnown() == null) 0 else 1) +
-                (accounting.asKnown()?.validity() ?: 0) +
                 (accounts.asKnown()?.sumOf { it.validity().toInt() } ?: 0) +
                 (if (email.asKnown() == null) 0 else 1) +
                 (if (externalId.asKnown() == null) 0 else 1) +
-                (ledgerType.asKnown()?.validity() ?: 0) +
                 (legalEntity.asKnown()?.validity() ?: 0) +
                 (if (legalEntityId.asKnown() == null) 0 else 1) +
                 (metadata.asKnown()?.validity() ?: 0) +
@@ -1222,11 +1073,9 @@ private constructor(
 
             return other is CounterpartyCreateRequest &&
                 name == other.name &&
-                accounting == other.accounting &&
                 accounts == other.accounts &&
                 email == other.email &&
                 externalId == other.externalId &&
-                ledgerType == other.ledgerType &&
                 legalEntity == other.legalEntity &&
                 legalEntityId == other.legalEntityId &&
                 metadata == other.metadata &&
@@ -1239,11 +1088,9 @@ private constructor(
         private val hashCode: Int by lazy {
             Objects.hash(
                 name,
-                accounting,
                 accounts,
                 email,
                 externalId,
-                ledgerType,
                 legalEntity,
                 legalEntityId,
                 metadata,
@@ -1257,301 +1104,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "CounterpartyCreateRequest{name=$name, accounting=$accounting, accounts=$accounts, email=$email, externalId=$externalId, ledgerType=$ledgerType, legalEntity=$legalEntity, legalEntityId=$legalEntityId, metadata=$metadata, sendRemittanceAdvice=$sendRemittanceAdvice, taxpayerIdentifier=$taxpayerIdentifier, verificationStatus=$verificationStatus, additionalProperties=$additionalProperties}"
-    }
-
-    @Deprecated("deprecated")
-    class Accounting
-    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
-    private constructor(
-        private val type: JsonField<Type>,
-        private val additionalProperties: MutableMap<String, JsonValue>,
-    ) {
-
-        @JsonCreator
-        private constructor(
-            @JsonProperty("type") @ExcludeMissing type: JsonField<Type> = JsonMissing.of()
-        ) : this(type, mutableMapOf())
-
-        /**
-         * An optional type to auto-sync the counterparty to your ledger. Either `customer` or
-         * `vendor`.
-         *
-         * @throws ModernTreasuryInvalidDataException if the JSON field has an unexpected type (e.g.
-         *   if the server responded with an unexpected value).
-         */
-        fun type(): Type? = type.getNullable("type")
-
-        /**
-         * Returns the raw JSON value of [type].
-         *
-         * Unlike [type], this method doesn't throw if the JSON field has an unexpected type.
-         */
-        @JsonProperty("type") @ExcludeMissing fun _type(): JsonField<Type> = type
-
-        @JsonAnySetter
-        private fun putAdditionalProperty(key: String, value: JsonValue) {
-            additionalProperties.put(key, value)
-        }
-
-        @JsonAnyGetter
-        @ExcludeMissing
-        fun _additionalProperties(): Map<String, JsonValue> =
-            Collections.unmodifiableMap(additionalProperties)
-
-        fun toBuilder() = Builder().from(this)
-
-        companion object {
-
-            /** Returns a mutable builder for constructing an instance of [Accounting]. */
-            fun builder() = Builder()
-        }
-
-        /** A builder for [Accounting]. */
-        class Builder internal constructor() {
-
-            private var type: JsonField<Type> = JsonMissing.of()
-            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
-
-            internal fun from(accounting: Accounting) = apply {
-                type = accounting.type
-                additionalProperties = accounting.additionalProperties.toMutableMap()
-            }
-
-            /**
-             * An optional type to auto-sync the counterparty to your ledger. Either `customer` or
-             * `vendor`.
-             */
-            fun type(type: Type) = type(JsonField.of(type))
-
-            /**
-             * Sets [Builder.type] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.type] with a well-typed [Type] value instead. This
-             * method is primarily for setting the field to an undocumented or not yet supported
-             * value.
-             */
-            fun type(type: JsonField<Type>) = apply { this.type = type }
-
-            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                this.additionalProperties.clear()
-                putAllAdditionalProperties(additionalProperties)
-            }
-
-            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                additionalProperties.put(key, value)
-            }
-
-            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                this.additionalProperties.putAll(additionalProperties)
-            }
-
-            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
-
-            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
-                keys.forEach(::removeAdditionalProperty)
-            }
-
-            /**
-             * Returns an immutable instance of [Accounting].
-             *
-             * Further updates to this [Builder] will not mutate the returned instance.
-             */
-            fun build(): Accounting = Accounting(type, additionalProperties.toMutableMap())
-        }
-
-        private var validated: Boolean = false
-
-        /**
-         * Validates that the types of all values in this object match their expected types
-         * recursively.
-         *
-         * This method is _not_ forwards compatible with new types from the API for existing fields.
-         *
-         * @throws ModernTreasuryInvalidDataException if any value type in this object doesn't match
-         *   its expected type.
-         */
-        fun validate(): Accounting = apply {
-            if (validated) {
-                return@apply
-            }
-
-            type()?.validate()
-            validated = true
-        }
-
-        fun isValid(): Boolean =
-            try {
-                validate()
-                true
-            } catch (e: ModernTreasuryInvalidDataException) {
-                false
-            }
-
-        /**
-         * Returns a score indicating how many valid values are contained in this object
-         * recursively.
-         *
-         * Used for best match union deserialization.
-         */
-        internal fun validity(): Int = (type.asKnown()?.validity() ?: 0)
-
-        /**
-         * An optional type to auto-sync the counterparty to your ledger. Either `customer` or
-         * `vendor`.
-         */
-        class Type @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
-
-            /**
-             * Returns this class instance's raw value.
-             *
-             * This is usually only useful if this instance was deserialized from data that doesn't
-             * match any known member, and you want to know that value. For example, if the SDK is
-             * on an older version than the API, then the API may respond with new members that the
-             * SDK is unaware of.
-             */
-            @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
-
-            companion object {
-
-                val CUSTOMER = of("customer")
-
-                val VENDOR = of("vendor")
-
-                fun of(value: String) = Type(JsonField.of(value))
-            }
-
-            /** An enum containing [Type]'s known values. */
-            enum class Known {
-                CUSTOMER,
-                VENDOR,
-            }
-
-            /**
-             * An enum containing [Type]'s known values, as well as an [_UNKNOWN] member.
-             *
-             * An instance of [Type] can contain an unknown value in a couple of cases:
-             * - It was deserialized from data that doesn't match any known member. For example, if
-             *   the SDK is on an older version than the API, then the API may respond with new
-             *   members that the SDK is unaware of.
-             * - It was constructed with an arbitrary value using the [of] method.
-             */
-            enum class Value {
-                CUSTOMER,
-                VENDOR,
-                /** An enum member indicating that [Type] was instantiated with an unknown value. */
-                _UNKNOWN,
-            }
-
-            /**
-             * Returns an enum member corresponding to this class instance's value, or
-             * [Value._UNKNOWN] if the class was instantiated with an unknown value.
-             *
-             * Use the [known] method instead if you're certain the value is always known or if you
-             * want to throw for the unknown case.
-             */
-            fun value(): Value =
-                when (this) {
-                    CUSTOMER -> Value.CUSTOMER
-                    VENDOR -> Value.VENDOR
-                    else -> Value._UNKNOWN
-                }
-
-            /**
-             * Returns an enum member corresponding to this class instance's value.
-             *
-             * Use the [value] method instead if you're uncertain the value is always known and
-             * don't want to throw for the unknown case.
-             *
-             * @throws ModernTreasuryInvalidDataException if this class instance's value is a not a
-             *   known member.
-             */
-            fun known(): Known =
-                when (this) {
-                    CUSTOMER -> Known.CUSTOMER
-                    VENDOR -> Known.VENDOR
-                    else -> throw ModernTreasuryInvalidDataException("Unknown Type: $value")
-                }
-
-            /**
-             * Returns this class instance's primitive wire representation.
-             *
-             * This differs from the [toString] method because that method is primarily for
-             * debugging and generally doesn't throw.
-             *
-             * @throws ModernTreasuryInvalidDataException if this class instance's value does not
-             *   have the expected primitive type.
-             */
-            fun asString(): String =
-                _value().asString()
-                    ?: throw ModernTreasuryInvalidDataException("Value is not a String")
-
-            private var validated: Boolean = false
-
-            /**
-             * Validates that the types of all values in this object match their expected types
-             * recursively.
-             *
-             * This method is _not_ forwards compatible with new types from the API for existing
-             * fields.
-             *
-             * @throws ModernTreasuryInvalidDataException if any value type in this object doesn't
-             *   match its expected type.
-             */
-            fun validate(): Type = apply {
-                if (validated) {
-                    return@apply
-                }
-
-                known()
-                validated = true
-            }
-
-            fun isValid(): Boolean =
-                try {
-                    validate()
-                    true
-                } catch (e: ModernTreasuryInvalidDataException) {
-                    false
-                }
-
-            /**
-             * Returns a score indicating how many valid values are contained in this object
-             * recursively.
-             *
-             * Used for best match union deserialization.
-             */
-            internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
-
-            override fun equals(other: Any?): Boolean {
-                if (this === other) {
-                    return true
-                }
-
-                return other is Type && value == other.value
-            }
-
-            override fun hashCode() = value.hashCode()
-
-            override fun toString() = value.toString()
-        }
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is Accounting &&
-                type == other.type &&
-                additionalProperties == other.additionalProperties
-        }
-
-        private val hashCode: Int by lazy { Objects.hash(type, additionalProperties) }
-
-        override fun hashCode(): Int = hashCode
-
-        override fun toString() =
-            "Accounting{type=$type, additionalProperties=$additionalProperties}"
+            "CounterpartyCreateRequest{name=$name, accounts=$accounts, email=$email, externalId=$externalId, legalEntity=$legalEntity, legalEntityId=$legalEntityId, metadata=$metadata, sendRemittanceAdvice=$sendRemittanceAdvice, taxpayerIdentifier=$taxpayerIdentifier, verificationStatus=$verificationStatus, additionalProperties=$additionalProperties}"
     }
 
     class Account
@@ -3784,146 +3337,6 @@ private constructor(
 
         override fun toString() =
             "Account{accountDetails=$accountDetails, accountType=$accountType, contactDetails=$contactDetails, externalId=$externalId, ledgerAccount=$ledgerAccount, metadata=$metadata, name=$name, partyAddress=$partyAddress, partyIdentifier=$partyIdentifier, partyName=$partyName, partyType=$partyType, plaidProcessorToken=$plaidProcessorToken, routingDetails=$routingDetails, additionalProperties=$additionalProperties}"
-    }
-
-    /**
-     * An optional type to auto-sync the counterparty to your ledger. Either `customer` or `vendor`.
-     */
-    @Deprecated("deprecated")
-    class LedgerType @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
-
-        /**
-         * Returns this class instance's raw value.
-         *
-         * This is usually only useful if this instance was deserialized from data that doesn't
-         * match any known member, and you want to know that value. For example, if the SDK is on an
-         * older version than the API, then the API may respond with new members that the SDK is
-         * unaware of.
-         */
-        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
-
-        companion object {
-
-            val CUSTOMER = of("customer")
-
-            val VENDOR = of("vendor")
-
-            fun of(value: String) = LedgerType(JsonField.of(value))
-        }
-
-        /** An enum containing [LedgerType]'s known values. */
-        enum class Known {
-            CUSTOMER,
-            VENDOR,
-        }
-
-        /**
-         * An enum containing [LedgerType]'s known values, as well as an [_UNKNOWN] member.
-         *
-         * An instance of [LedgerType] can contain an unknown value in a couple of cases:
-         * - It was deserialized from data that doesn't match any known member. For example, if the
-         *   SDK is on an older version than the API, then the API may respond with new members that
-         *   the SDK is unaware of.
-         * - It was constructed with an arbitrary value using the [of] method.
-         */
-        enum class Value {
-            CUSTOMER,
-            VENDOR,
-            /**
-             * An enum member indicating that [LedgerType] was instantiated with an unknown value.
-             */
-            _UNKNOWN,
-        }
-
-        /**
-         * Returns an enum member corresponding to this class instance's value, or [Value._UNKNOWN]
-         * if the class was instantiated with an unknown value.
-         *
-         * Use the [known] method instead if you're certain the value is always known or if you want
-         * to throw for the unknown case.
-         */
-        fun value(): Value =
-            when (this) {
-                CUSTOMER -> Value.CUSTOMER
-                VENDOR -> Value.VENDOR
-                else -> Value._UNKNOWN
-            }
-
-        /**
-         * Returns an enum member corresponding to this class instance's value.
-         *
-         * Use the [value] method instead if you're uncertain the value is always known and don't
-         * want to throw for the unknown case.
-         *
-         * @throws ModernTreasuryInvalidDataException if this class instance's value is a not a
-         *   known member.
-         */
-        fun known(): Known =
-            when (this) {
-                CUSTOMER -> Known.CUSTOMER
-                VENDOR -> Known.VENDOR
-                else -> throw ModernTreasuryInvalidDataException("Unknown LedgerType: $value")
-            }
-
-        /**
-         * Returns this class instance's primitive wire representation.
-         *
-         * This differs from the [toString] method because that method is primarily for debugging
-         * and generally doesn't throw.
-         *
-         * @throws ModernTreasuryInvalidDataException if this class instance's value does not have
-         *   the expected primitive type.
-         */
-        fun asString(): String =
-            _value().asString() ?: throw ModernTreasuryInvalidDataException("Value is not a String")
-
-        private var validated: Boolean = false
-
-        /**
-         * Validates that the types of all values in this object match their expected types
-         * recursively.
-         *
-         * This method is _not_ forwards compatible with new types from the API for existing fields.
-         *
-         * @throws ModernTreasuryInvalidDataException if any value type in this object doesn't match
-         *   its expected type.
-         */
-        fun validate(): LedgerType = apply {
-            if (validated) {
-                return@apply
-            }
-
-            known()
-            validated = true
-        }
-
-        fun isValid(): Boolean =
-            try {
-                validate()
-                true
-            } catch (e: ModernTreasuryInvalidDataException) {
-                false
-            }
-
-        /**
-         * Returns a score indicating how many valid values are contained in this object
-         * recursively.
-         *
-         * Used for best match union deserialization.
-         */
-        internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is LedgerType && value == other.value
-        }
-
-        override fun hashCode() = value.hashCode()
-
-        override fun toString() = value.toString()
     }
 
     class LegalEntityCreateRequest
